@@ -331,8 +331,7 @@ function MentoriaSection() {
       title: 'Autoridade Real',
       desc: 'Liderança genuína — na empresa e em casa, sem máscara',
     },
-    {
-      icon: '🏋️',
+
     { title: 'Gestão do Tempo', desc: 'Sistemas para dominar sua agenda e parar de apagar incêndios.', icon: '⌛' },
     { title: 'Posicionamento', desc: 'Como se portar como autoridade inquestionável no seu mercado.', icon: '♟️' },
     { title: 'Dinâmica Familiar', desc: 'Como construir uma família inabalável enquanto o negócio cresce.', icon: '🛡️' },
