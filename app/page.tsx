@@ -651,7 +651,7 @@ function LivroSection() {
                 </li>
               ))}
             </ul>
-            <a href="https://wa.me/554298250506?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20livro%20A%20Escada%20Invis%C3%ADvel." target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a href="https://wa.me/554298250506?text=GOSTARIA%20DE%20ADQUIRIR%20O%20LIVRO%20%22A%20ESCADA%20INVISIVEL%22" target="_blank" rel="noopener noreferrer" className="btn-outline">
               Quero meu exemplar →
             </a>
           </div>

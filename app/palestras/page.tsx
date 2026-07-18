@@ -169,11 +169,11 @@ export default function PalestrasPage() {
             </h2>
             <p className="text-lg mb-10" style={{ color: '#8A8580' }}>
               Para solicitar Patrick como palestrante ou verificar disponibilidade de agenda,
-              entre em contato via formulário de diagnóstico. Nossa equipe retornará com proposta personalizada.
+              entre em contato diretamente via WhatsApp. Nossa equipe retornará com proposta personalizada.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
-                <span>Solicitar Proposta para Evento →</span>
+              <a href="https://wa.me/554298250506?text=Gostaria%20de%20solicitar%20uma%20proposta%20de%20palestra%20com%20o%20Patrick" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
+                <span>Falar no WhatsApp →</span>
               </a>
               <a
                 href="https://instagram.com/patrickteixeiras"
