@@ -229,6 +229,19 @@ export default function DiagnosticoPage() {
                     Nossa equipe retornará em até 24h úteis.
                   </p>
                 </div>
+                <div className="mt-8 pt-8 text-center" style={{ borderTop: '1px solid rgba(197,160,89,0.1)' }}>
+                  <p className="text-sm mb-4" style={{ color: '#8A8580' }}>
+                    Se preferir, você também pode preencher pelo nosso formulário interativo original:
+                  </p>
+                  <a
+                    href="https://form.respondi.app/DQ2AeT6P"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline inline-flex"
+                  >
+                    Abrir Formulário Respondi ↗
+                  </a>
+                </div>
               </form>
             ) : (
               /* Sucesso */
