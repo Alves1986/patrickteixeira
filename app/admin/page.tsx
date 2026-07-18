@@ -57,8 +57,10 @@ export default function AdminPage() {
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState(false)
 
-  // Autenticação simples (senha fixa — substituir por Supabase Auth)
-  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'kairos2024'
+  // Autenticação simples
+  // Como as variáveis de ambiente não têm mais NEXT_PUBLIC_, elas não são expostas ao client-side.
+  // Temporariamente a senha fica fixa até migrarmos para o Supabase Auth.
+  const ADMIN_PASSWORD = 'kairos2024'
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
