@@ -261,24 +261,6 @@ function SobreSection() {
                 />
               </div>
 
-              {/* Badge Verificado */}
-              <div
-                className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full"
-                style={{
-                  background: 'rgba(10,10,10,0.9)',
-                  border: '1px solid rgba(197,160,89,0.3)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#C5A059">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#C5A059" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span className="text-[10px] font-bold tracking-wider uppercase" style={{ color: '#C5A059' }}>
-                  Verificado
-                </span>
-              </div>
-            </div>
-
             {/* Card flutuante — livro */}
             <div
               className="absolute -bottom-4 -right-4 lg:right-auto lg:-left-8 flex gap-3 items-center p-3 rounded-xl"
@@ -336,7 +318,6 @@ function SobreSection() {
                 { icon: '📘', text: 'Autor de "A Escada Invisível"' },
                 { icon: '🎤', text: 'Palestrante em eventos nacionais' },
                 { icon: '🏆', text: 'Fundador da Mentoria Kairós' },
-                { icon: '✅', text: 'Selo Azul Instagram verificado' },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3">
                   <span className="text-lg">{item.icon}</span>

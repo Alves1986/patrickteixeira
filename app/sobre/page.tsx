@@ -91,7 +91,6 @@ export default function SobrePage() {
               {/* Selos */}
               <div className="grid grid-cols-2 gap-3 mt-6">
                 {[
-                  { icon: '✅', text: 'Perfil Verificado' },
                   { icon: '📘', text: 'Autor Publicado' },
                   { icon: '🎤', text: 'Palestrante Nacional' },
                   { icon: '🏆', text: 'Método Próprio' },
