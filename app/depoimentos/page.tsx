@@ -177,9 +177,9 @@ export default function DepoimentosPage() {
           <p className="text-lg mb-8" style={{ color: '#8A8580' }}>
             Comece com um diagnóstico gratuito. 20 minutos, sem compromisso.
           </p>
-          <Link href="/diagnostico" className="btn-primary text-base px-10 py-4">
-            <span>Fazer meu Diagnóstico Gratuito →</span>
-          </Link>
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
+            <span>Fazer Diagnóstico Gratuito →</span>
+          </a>
         </div>
       </section>
     </SiteLayout>

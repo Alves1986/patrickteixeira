@@ -8,7 +8,7 @@ const footerLinks = {
     { href: '/mentoria', label: 'Mentoria Kairós' },
     { href: '/palestras', label: 'Palestras' },
     { href: '/blog', label: 'Blog' },
-    { href: '/diagnostico', label: 'Diagnóstico Gratuito' },
+    { href: 'https://form.respondi.app/DQ2AeT6P', label: 'Diagnóstico Gratuito', external: true },
   ],
   contact: [
     { href: 'https://instagram.com/patrickteixeiras', label: '@patrickteixeiras', external: true },
@@ -50,9 +50,9 @@ export function Footer() {
           <p className="text-[#8A8580] max-w-lg mx-auto mb-8 text-lg">
             20 minutos que podem mudar a trajetória do seu negócio e da sua família.
           </p>
-          <Link href="/diagnostico" className="btn-primary text-base px-8 py-4">
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
             <span>Quero meu Diagnóstico Gratuito →</span>
-          </Link>
+          </a>
         </div>
       </div>
 
@@ -100,12 +100,23 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.pages.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-[#4A4540] hover:text-[#C5A059] transition-colors duration-300"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[#4A4540] hover:text-[#C5A059] transition-colors duration-300"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[#4A4540] hover:text-[#C5A059] transition-colors duration-300"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

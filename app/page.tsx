@@ -87,9 +87,9 @@ function HeroSection() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <Link href="/diagnostico" className="btn-primary text-base px-8 py-4 w-full sm:w-auto">
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4 w-full sm:w-auto">
             <span>Quero o Diagnóstico Gratuito →</span>
-          </Link>
+          </a>
           <Link href="/mentoria" className="btn-outline text-base px-8 py-4 w-full sm:w-auto">
             Conheça a Mentoria Kairós
           </Link>
@@ -492,9 +492,9 @@ function MentoriaSection() {
           <p className="text-sm mb-6 font-semibold tracking-wider uppercase" style={{ color: '#4A4540' }}>
             Vagas limitadas por turma
           </p>
-          <Link href="/diagnostico" className="btn-primary text-base px-10 py-4">
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
             <span>Fazer Diagnóstico Gratuito →</span>
-          </Link>
+          </a>
           <p className="text-xs mt-4" style={{ color: '#2A2520' }}>
             Sem compromisso · Sem pressão de venda · 20 minutos
           </p>
@@ -724,9 +724,9 @@ function DiagnosticoSection() {
             Sem compromisso. Sem pressão de venda.
           </p>
 
-          <Link href="/diagnostico" className="btn-primary text-lg px-12 py-5">
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-12 py-5">
             <span>Fazer meu Diagnóstico Gratuito →</span>
-          </Link>
+          </a>
 
           <p className="text-xs mt-6" style={{ color: '#2A2520' }}>
             Vagas limitadas por semana · Preenchimento online · Retorno em até 24h

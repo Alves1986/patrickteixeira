@@ -48,9 +48,9 @@ export default function MentoriaPage() {
             O sistema que forma líderes completos — homens que prosperam nos negócios
             sem sacrificar a família.
           </p>
-          <Link href="/diagnostico" className="btn-primary text-base px-10 py-4">
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
             <span>Fazer Diagnóstico Gratuito →</span>
-          </Link>
+          </a>
           <p className="text-xs mt-4" style={{ color: '#2A2520' }}>Vagas limitadas · Sem compromisso</p>
         </div>
       </section>

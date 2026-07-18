@@ -69,9 +69,9 @@ export function Header() {
 
         {/* CTA — Desktop */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link href="/diagnostico" className="btn-primary text-sm py-2.5 px-6">
-            <span>Diagnóstico Gratuito</span>
-          </Link>
+          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2.5 px-6">
+            Diagnóstico Gratuito
+          </a>
         </div>
 
         {/* Menu Mobile Toggle */}
@@ -117,13 +117,13 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/diagnostico"
-            className="btn-primary mt-4 text-sm"
+          <a
+            href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer"
+            className="block w-full text-center py-4 bg-gradient-to-r from-[#C5A059] to-[#D4B577] text-[#0A0A0A] font-bold uppercase tracking-wider text-sm mt-4"
             onClick={() => setMenuOpen(false)}
           >
-            <span>Diagnóstico Gratuito</span>
-          </Link>
+            Diagnóstico Gratuito
+          </a>
         </nav>
       </div>
     </header>

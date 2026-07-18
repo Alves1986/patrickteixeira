@@ -58,11 +58,7 @@
 /* ============================================
    RESET & BASE
    ============================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Reset already handled by tailwindcss preflight */
 
 html {
   scroll-behavior: smooth;
@@ -260,15 +256,7 @@ a {
 .section-padding { padding: 6rem 0; }
 .section-padding-sm { padding: 4rem 0; }
 
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
 
-@media (min-width: 640px) { .container { padding: 0 2rem; } }
-@media (min-width: 1024px) { .container { padding: 0 3rem; } }
 
 /* ============================================
    DECORAÇÃO — Glow Orbs
@@ -356,4 +344,10 @@ a {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Fix for Tailwind v4 mx-auto logical property issue */
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }

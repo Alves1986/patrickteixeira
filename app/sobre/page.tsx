@@ -185,9 +185,9 @@ export default function SobrePage() {
                 <Link href="/mentoria" className="btn-primary">
                   <span>Conhecer a Mentoria Kairós →</span>
                 </Link>
-                <Link href="/diagnostico" className="btn-outline">
-                  Diagnóstico Gratuito
-                </Link>
+                <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-outline">
+                  Fazer meu Diagnóstico
+                </a>
               </div>
             </div>
           </div>

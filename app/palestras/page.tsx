@@ -172,9 +172,9 @@ export default function PalestrasPage() {
               entre em contato via formulário de diagnóstico. Nossa equipe retornará com proposta personalizada.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/diagnostico" className="btn-primary text-base px-8 py-4">
-                <span>Solicitar Palestra →</span>
-              </Link>
+              <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
+                <span>Solicitar Proposta para Evento →</span>
+              </a>
               <a
                 href="https://instagram.com/patrickteixeiras"
                 target="_blank"
