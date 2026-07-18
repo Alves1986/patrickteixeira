@@ -14,10 +14,23 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [dynamicLinks, setDynamicLinks] = useState(navLinks)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handleScroll, { passive: true })
+    
+    // Fetch dynamic menus
+    fetch('/api/admin/menus')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          const headerLinks = data.filter((m: any) => m.location === 'header').sort((a: any, b: any) => a.order_index - b.order_index)
+          setDynamicLinks(headerLinks)
+        }
+      })
+      .catch(err => console.error('Error fetching menus:', err))
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -55,7 +68,7 @@ export function Header() {
 
         {/* Nav — Desktop */}
         <nav className="hidden lg:flex items-center gap-8" aria-label="Navegação principal">
-          {navLinks.map((link) => (
+          {dynamicLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -107,7 +120,7 @@ export function Header() {
         aria-hidden={!menuOpen}
       >
         <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-1 border-t border-[#1E1E1E] mt-3">
-          {navLinks.map((link) => (
+          {dynamicLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}

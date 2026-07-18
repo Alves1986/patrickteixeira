@@ -1,0 +1,6 @@
+[
+  { "id": "home_hero_title", "content": "Homens Constroem Negócios. Lideres Constroem Legados.", "description": "Título principal da Home" },
+  { "id": "home_hero_subtitle", "content": "Liderança não é apenas sobre faturamento. É sobre governar a própria vida, construir negócios sólidos e liderar a família com honra.", "description": "Subtítulo da Home" },
+  { "id": "home_book_title", "content": "O Guia Definitivo Para Sua Escalada", "description": "Título da Seção do Livro na Home" },
+  { "id": "home_book_desc", "content": "Descubra como construir uma base sólida para sua vida e negócios com o método testado por grandes líderes.", "description": "Descrição da Seção do Livro" }
+]

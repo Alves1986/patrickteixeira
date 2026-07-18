@@ -1,0 +1,9 @@
+[
+  { "id": "1", "label": "Sobre", "href": "/sobre", "location": "header", "order_index": 1 },
+  { "id": "2", "label": "Palestras", "href": "/palestras", "location": "header", "order_index": 2 },
+  { "id": "3", "label": "Livro", "href": "/", "location": "header", "order_index": 3 },
+  { "id": "4", "label": "Mentoria", "href": "/mentoria", "location": "header", "order_index": 4 },
+  { "id": "5", "label": "Blog", "href": "/blog", "location": "header", "order_index": 5 },
+  { "id": "6", "label": "Termos de Uso", "href": "/termos", "location": "footer", "order_index": 1 },
+  { "id": "7", "label": "Política de Privacidade", "href": "/privacidade", "location": "footer", "order_index": 2 }
+]

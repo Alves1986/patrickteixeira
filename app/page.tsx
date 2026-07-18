@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { SiteLayout } from '@/components/layout/SiteLayout'
 import type { Metadata } from 'next'
+import { getContent } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Patrick Teixeira | Liderança Masculina, Negócios e Legado',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 // -----------------------------------------------
 // HERO SECTION
 // -----------------------------------------------
-function HeroSection() {
+function HeroSection({ texts }: { texts: Record<string, string> }) {
   return (
     <section
       id="hero"
@@ -64,25 +65,12 @@ function HeroSection() {
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-5xl mx-auto leading-tight"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
-          Prospere nos Negócios.{' '}
-          <br className="hidden md:block" />
-          <span
-            style={{
-              background: 'linear-gradient(135deg, #C5A059 0%, #D4B577 50%, #A8863D 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            Preserve o que Realmente Importa.
-          </span>
+          {texts.home_hero_title || 'Homens Constroem Negócios. Lideres Constroem Legados.'}
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: '#8A8580' }}>
-          A maioria dos homens que chegam ao topo pagam um preço que ninguém viu:{' '}
-          família distante, saúde sacrificada, legado que nunca foi construído.{' '}
-          <span style={{ color: '#C4BFBA' }}>Existe outro caminho.</span>
+          {texts.home_hero_subtitle || 'Liderança não é apenas sobre faturamento. É sobre governar a própria vida, construir negócios sólidos e liderar a família com honra.'}
         </p>
 
         {/* CTAs */}
@@ -722,10 +710,18 @@ function DiagnosticoSection() {
 // -----------------------------------------------
 // HOME PAGE
 // -----------------------------------------------
-export default function HomePage() {
+export default async function HomePage() {
+  const contentArray = await getContent()
+  
+  // Converter array para objeto { [id]: content } para facilitar uso
+  const texts = contentArray.reduce((acc: Record<string, string>, item: any) => {
+    acc[item.id] = item.content
+    return acc
+  }, {})
+
   return (
     <SiteLayout>
-      <HeroSection />
+      <HeroSection texts={texts} />
       <ProblemSection />
       <SobreSection />
       <MentoriaSection />
@@ -735,3 +731,4 @@ export default function HomePage() {
     </SiteLayout>
   )
 }
+
