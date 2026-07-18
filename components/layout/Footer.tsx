@@ -1,12 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getSettings } from '@/lib/content'
+import { getSettings, getMenus } from '@/lib/content'
 
 export async function Footer() {
   const currentYear = new Date().getFullYear()
   const settings = await getSettings()
+  const menus = await getMenus()
   const ctaLabel = settings.ctaLabel || 'Diagnóstico Gratuito'
   const ctaLink = settings.ctaLink || 'https://form.respondi.app/DQ2AeT6P'
+
+  const footerPages = menus.filter((m: any) => m.location === 'footer').sort((a: any, b: any) => a.order_index - b.order_index)
 
   return (
     <footer
@@ -87,7 +90,7 @@ export async function Footer() {
               Páginas
             </h3>
             <ul className="space-y-3">
-              {footerLinks.pages.map((link) => (
+              {footerPages.map((link: any) => (
                 <li key={link.href}>
                   {link.external ? (
                     <a
@@ -117,7 +120,10 @@ export async function Footer() {
               Contato
             </h3>
             <ul className="space-y-3">
-              {footerLinks.contact.map((link) => (
+              {[
+                { href: 'mailto:contato@patrickteixeira.com.br', label: 'contato@patrickteixeira.com.br', external: true },
+                { href: 'https://wa.me/554298250506', label: '(42) 9825-0506', external: true }
+              ].map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
