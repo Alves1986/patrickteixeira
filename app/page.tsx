@@ -281,16 +281,20 @@ function SobreSection() {
 
             {/* Card flutuante — livro */}
             <div
-              className="absolute -bottom-4 -right-4 lg:right-auto lg:-left-4 p-4 rounded-xl max-w-[200px]"
+              className="absolute -bottom-4 -right-4 lg:right-auto lg:-left-8 flex gap-3 items-center p-3 rounded-xl"
               style={{
                 background: '#161616',
                 border: '1px solid rgba(197,160,89,0.2)',
                 boxShadow: '0 8px 32px rgba(0,0,0,0.8)',
               }}
             >
-              <div className="text-2xl mb-1">📘</div>
-              <p className="text-xs font-bold" style={{ color: '#FAFAFA' }}>A Escala Invisível</p>
-              <p className="text-[10px] mt-0.5" style={{ color: '#4A4540' }}>Livro publicado</p>
+              <div className="relative w-12 h-16 rounded overflow-hidden shadow-md">
+                <Image src="/images/IMG_2634.PNG" alt="Capa do livro A Escada Invisível" fill className="object-cover" />
+              </div>
+              <div>
+                <p className="text-xs font-bold" style={{ color: '#FAFAFA' }}>A Escada Invisível</p>
+                <p className="text-[10px] mt-0.5" style={{ color: '#C5A059' }}>Livro publicado</p>
+              </div>
             </div>
           </div>
 
@@ -329,7 +333,7 @@ function SobreSection() {
             {/* Credenciais */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               {[
-                { icon: '📘', text: 'Autor de "A Escala Invisível"' },
+                { icon: '📘', text: 'Autor de "A Escada Invisível"' },
                 { icon: '🎤', text: 'Palestrante em eventos nacionais' },
                 { icon: '🏆', text: 'Fundador da Mentoria Kairós' },
                 { icon: '✅', text: 'Selo Azul Instagram verificado' },
@@ -612,38 +616,20 @@ function LivroSection() {
       id="livro"
       className="section-padding"
       style={{ background: '#111111' }}
-      aria-label="Livro A Escala Invisível"
+      aria-label="Livro A Escada Invisível"
     >
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
           {/* Capa do livro visual */}
           <div className="flex justify-center">
-            <div
-              className="relative w-64 h-80 rounded-lg flex flex-col items-center justify-center text-center p-8"
-              style={{
-                background: 'linear-gradient(135deg, #1A1510, #0A0A0A)',
-                border: '1px solid rgba(197,160,89,0.3)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)',
-              }}
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-1 rounded-t-lg"
-                style={{ background: 'linear-gradient(90deg, #C5A059, #D4B577, #A8863D)' }}
+            <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)' }}>
+              <Image
+                src="/images/IMG_2635.PNG"
+                alt="Patrick Teixeira com o livro A Escada Invisível"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <span className="text-4xl mb-4">📘</span>
-              <div
-                className="text-xl font-bold mb-2 leading-tight"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
-              >
-                A Escala Invisível
-              </div>
-              <div
-                className="w-12 h-px my-3"
-                style={{ background: 'rgba(197,160,89,0.4)' }}
-              />
-              <p className="text-xs tracking-widest uppercase font-semibold" style={{ color: '#C5A059' }}>
-                Patrick Teixeira
-              </p>
             </div>
           </div>
 
@@ -667,7 +653,7 @@ function LivroSection() {
               </span>
             </h2>
             <p className="text-base mb-6 leading-relaxed" style={{ color: '#8A8580' }}>
-              &ldquo;A Escala Invisível&rdquo; revela os princípios que Patrick aplicou
+              &ldquo;A Escada Invisível&rdquo; revela os princípios que Patrick aplicou
               para construir autoridade, resultado e presença — sem sacrificar o que mais importa.
               Um guia prático para líderes que querem deixar um legado real.
             </p>

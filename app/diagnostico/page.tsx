@@ -208,7 +208,7 @@ export default function DiagnosticoPage() {
                       <option value="instagram">Instagram (@patrickteixeiras)</option>
                       <option value="indicacao">Indicação de alguém</option>
                       <option value="palestra">Assisti a uma palestra</option>
-                      <option value="livro">Pelo livro &quot;A Escala Invisível&quot;</option>
+                      <option value="livro">Pelo livro &quot;A Escada Invisível&quot;</option>
                       <option value="busca">Busca no Google</option>
                       <option value="outro">Outro</option>
                     </select>

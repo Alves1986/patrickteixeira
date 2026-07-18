@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Sobre Patrick Teixeira | Mentor, Autor e Palestrante',
   description:
-    'Conheça a história de Patrick Teixeira, fundador da Mentoria Kairós e autor de "A Escala Invisível". Liderança masculina com propósito e legado.',
+    'Conheça a história de Patrick Teixeira, fundador da Mentoria Kairós e autor de "A Escada Invisível". Liderança masculina com propósito e legado.',
 }
 
 export default function SobrePage() {
@@ -45,7 +45,7 @@ export default function SobrePage() {
             </h1>
             <p className="text-xl leading-relaxed" style={{ color: '#8A8580' }}>
               Mentor de liderança masculina, fundador da Mentoria Kairós, autor de{' '}
-              <em style={{ color: '#C4BFBA' }}>&ldquo;A Escala Invisível&rdquo;</em>,
+              <em style={{ color: '#C4BFBA' }}>&ldquo;A Escada Invisível&rdquo;</em>,
               palestrante e — acima de tudo — marido, pai e homem de legado.
             </p>
           </div>
@@ -171,10 +171,10 @@ export default function SobrePage() {
                     className="text-2xl font-bold mb-4"
                     style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
                   >
-                    &ldquo;A Escala Invisível&rdquo;
+                    &ldquo;A Escada Invisível&rdquo;
                   </h2>
                   <p className="leading-relaxed" style={{ color: '#8A8580' }}>
-                    Seu livro &ldquo;A Escala Invisível&rdquo; condensa os princípios que ele aplicou
+                    Seu livro &ldquo;A Escada Invisível&rdquo; condensa os princípios que ele aplicou
                     pessoalmente e com centenas de mentorados: como construir autoridade,
                     resultado e presença sem sacrificar o que mais importa.
                   </p>

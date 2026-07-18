@@ -48,7 +48,7 @@ const posts = [
   },
   {
     slug: 'a-escala-invisivel-conceito',
-    title: 'A Escala Invisível: o que mede o sucesso que nenhuma planilha mostra',
+    title: 'A Escada Invisível: o que mede o sucesso que nenhuma planilha mostra',
     excerpt:
       'Existem dois tipos de crescimento: o visível (faturamento, equipe, lucro) e o invisível (autoridade, presença, paz interior). O segundo sustenta o primeiro.',
     category: 'Legado',

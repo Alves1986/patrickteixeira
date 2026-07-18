@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const temas = [
   {
     num: '01',
-    title: 'A Escala Invisível',
+    title: 'A Escada Invisível',
     subtitle: 'Como construir resultado sem destruir o que importa',
     desc: 'Uma palestra que desmonta o mito do "sucesso a qualquer custo" e apresenta um framework prático para crescer no negócio sem perder a família, a saúde e o propósito.',
     duracao: '45–90 min',
