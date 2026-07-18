@@ -5,12 +5,14 @@ import Image from 'next/image'
 import { LeadsTab } from './components/LeadsTab'
 import { MenusTab } from './components/MenusTab'
 import { ContentTab } from './components/ContentTab'
+import { PostsTab } from './components/PostsTab'
+import { SettingsTab } from './components/SettingsTab'
 
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState(false)
-  const [activeTab, setActiveTab] = useState<'leads' | 'menus' | 'content'>('leads')
+  const [activeTab, setActiveTab] = useState<'leads' | 'posts' | 'menus' | 'content' | 'settings'>('leads')
 
   // Autenticação simples (Fallback até integração completa do Supabase Auth)
   const ADMIN_PASSWORD = 'kairos2024'
@@ -88,7 +90,7 @@ export default function AdminPage() {
           </span>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           <button
             onClick={() => setActiveTab('leads')}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
@@ -96,6 +98,14 @@ export default function AdminPage() {
             }`}
           >
             📋 Leads & Contatos
+          </button>
+          <button
+            onClick={() => setActiveTab('posts')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
+              activeTab === 'posts' ? 'bg-[#1E1E1E] text-white' : 'text-[#8A8580] hover:bg-[#161616] hover:text-white'
+            }`}
+          >
+            📰 Artigos (Blog)
           </button>
           <button
             onClick={() => setActiveTab('menus')}
@@ -112,6 +122,14 @@ export default function AdminPage() {
             }`}
           >
             📝 Textos do Site
+          </button>
+          <button
+            onClick={() => setActiveTab('settings')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all ${
+              activeTab === 'settings' ? 'bg-[#1E1E1E] text-white' : 'text-[#8A8580] hover:bg-[#161616] hover:text-white'
+            }`}
+          >
+            ⚙️ Configurações
           </button>
         </nav>
 
@@ -133,8 +151,10 @@ export default function AdminPage() {
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-6xl mx-auto p-8">
           {activeTab === 'leads' && <LeadsTab />}
+          {activeTab === 'posts' && <PostsTab />}
           {activeTab === 'menus' && <MenusTab />}
           {activeTab === 'content' && <ContentTab />}
+          {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
     </div>

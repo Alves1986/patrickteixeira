@@ -1,23 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { getSettings } from '@/lib/content'
 
-const footerLinks = {
-  pages: [
-    { href: '/', label: 'Home' },
-    { href: '/sobre', label: 'Sobre Patrick' },
-    { href: '/mentoria', label: 'Mentoria Kairós' },
-    { href: '/palestras', label: 'Palestras' },
-    { href: '/blog', label: 'Blog' },
-    { href: 'https://form.respondi.app/DQ2AeT6P', label: 'Diagnóstico Gratuito', external: true },
-  ],
-  contact: [
-    { href: 'https://instagram.com/patrickteixeiras', label: '@patrickteixeiras', external: true },
-    { href: 'https://form.respondi.app/DQ2AeT6P', label: 'Formulário de Diagnóstico', external: true },
-  ],
-}
-
-export function Footer() {
+export async function Footer() {
   const currentYear = new Date().getFullYear()
+  const settings = await getSettings()
+  const ctaLabel = settings.ctaLabel || 'Diagnóstico Gratuito'
+  const ctaLink = settings.ctaLink || 'https://form.respondi.app/DQ2AeT6P'
 
   return (
     <footer
@@ -45,13 +34,13 @@ export function Footer() {
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
             Pronto para o{' '}
-            <span className="text-gold-gradient">Diagnóstico Gratuito?</span>
+            <span className="text-gold-gradient">{ctaLabel}?</span>
           </h2>
           <p className="text-[#8A8580] max-w-lg mx-auto mb-8 text-lg">
             20 minutos que podem mudar a trajetória do seu negócio e da sua família.
           </p>
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
-            <span>Quero meu Diagnóstico Gratuito →</span>
+          <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
+            <span>Quero meu {ctaLabel} →</span>
           </a>
         </div>
       </div>

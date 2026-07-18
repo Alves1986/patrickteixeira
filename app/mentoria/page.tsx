@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { SiteLayout } from '@/components/layout/SiteLayout'
 import type { Metadata } from 'next'
+import { getSettings, getContent } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Mentoria Kairós | Sistema que Forma Líderes Completos',
@@ -8,7 +9,18 @@ export const metadata: Metadata = {
     'A Mentoria Kairós forma líderes que crescem nos negócios preservando a família. Vagas limitadas. Faça seu diagnóstico gratuito com Patrick Teixeira.',
 }
 
-export default function MentoriaPage() {
+export default async function MentoriaPage() {
+  const settings = await getSettings()
+  const contentArray = await getContent()
+
+  const texts = contentArray.reduce((acc: Record<string, string>, item: any) => {
+    acc[item.id] = item.content
+    return acc
+  }, {})
+
+  const ctaLabel = settings?.ctaLabel || 'Diagnóstico Gratuito'
+  const ctaLink = settings?.ctaLink || 'https://form.respondi.app/DQ2AeT6P'
+
   return (
     <SiteLayout>
       {/* Hero */}
@@ -44,12 +56,11 @@ export default function MentoriaPage() {
               Kairós
             </span>
           </h1>
-          <p className="text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: '#8A8580' }}>
-            O sistema que forma líderes completos — homens que prosperam nos negócios
-            sem sacrificar a família.
-          </p>
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
-            <span>Fazer Diagnóstico Gratuito →</span>
+          <div className="text-xl max-w-2xl mx-auto mb-10 leading-relaxed whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+            {texts.mentoria_text || `O sistema que forma líderes completos — homens que prosperam nos negócios sem sacrificar a família.`}
+          </div>
+          <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
+            <span>Fazer {ctaLabel} →</span>
           </a>
           <p className="text-xs mt-4" style={{ color: '#2A2520' }}>Vagas limitadas · Sem compromisso</p>
         </div>

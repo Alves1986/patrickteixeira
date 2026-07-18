@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation'
 import { SiteLayout } from '@/components/layout/SiteLayout'
-import { posts } from '../data'
+import { getPosts } from '@/lib/content'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = posts.find((p) => p.slug === resolvedParams.slug)
+  const posts = await getPosts()
+  const post = posts.find((p: any) => p.slug === resolvedParams.slug)
   if (!post) return { title: 'Artigo não encontrado' }
   
   return {
@@ -15,24 +16,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Liderança: '#C5A059',
-  Negócios: '#4A7CC7',
-  Família: '#4CAF77',
-  Método: '#9B59B6',
-  Legado: '#D4B577',
-  Performance: '#F0A030',
-}
-
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = posts.find((p) => p.slug === resolvedParams.slug)
+  const posts = await getPosts()
+  const post = posts.find((p: any) => p.slug === resolvedParams.slug)
 
   if (!post) {
     notFound()
   }
-
-  const categoryColor = CATEGORY_COLORS[post.category] || '#C5A059'
 
   return (
     <SiteLayout>
@@ -48,15 +39,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span
                 className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                 style={{
-                  background: `${categoryColor}15`,
-                  color: categoryColor,
-                  border: `1px solid ${categoryColor}40`,
+                  background: `rgba(197,160,89,0.15)`,
+                  color: '#C5A059',
+                  border: `1px solid rgba(197,160,89,0.4)`,
                 }}
               >
-                {post.category}
+                Artigo
               </span>
               <span className="text-sm" style={{ color: '#8A8580' }}>
-                {new Date(post.date).toLocaleDateString('pt-BR')} · {post.readTime}
+                {post.date} · {post.readTime}
               </span>
             </div>
             <h1
@@ -68,21 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </header>
 
           <div className="prose prose-invert prose-lg max-w-none" style={{ color: '#FAFAFA' }}>
-            <p className="text-xl leading-relaxed mb-8" style={{ color: '#D4B577' }}>
-              {post.content.summary}
-            </p>
-            
-            <h3 className="text-2xl font-bold mt-12 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-              Pontos-chave a desenvolver:
-            </h3>
-            <ul className="space-y-4 mb-12">
-              {post.content.keyPoints.map((point, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="mt-1.5 flex-shrink-0" style={{ color: '#C5A059' }}>◆</span>
-                  <span className="text-lg leading-relaxed" style={{ color: '#d1d1d1' }}>{point}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="whitespace-pre-wrap leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
 
           <div className="mt-16 pt-8 border-t border-[#1E1E1E]">
@@ -99,7 +76,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 rel="noopener noreferrer"
                 className="btn-primary"
               >
-                Seguir @patrickteixeiras
+                <span>Acompanhar no Instagram →</span>
               </a>
             </div>
           </div>

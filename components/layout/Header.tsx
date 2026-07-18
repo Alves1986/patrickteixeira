@@ -15,6 +15,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [dynamicLinks, setDynamicLinks] = useState(navLinks)
+  const [cta, setCta] = useState({ label: 'Diagnóstico Gratuito', link: 'https://form.respondi.app/DQ2AeT6P' })
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -30,6 +31,16 @@ export function Header() {
         }
       })
       .catch(err => console.error('Error fetching menus:', err))
+
+    // Fetch CTA Settings
+    fetch('/api/admin/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.ctaLabel) {
+          setCta({ label: data.ctaLabel, link: data.ctaLink })
+        }
+      })
+      .catch(err => console.error('Error fetching settings:', err))
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -51,16 +62,16 @@ export function Header() {
         >
           {/* Fundo escuro atrás da logo branca */}
           <div
-            className="relative h-20 w-auto"
-            style={{ minWidth: 260 }}
+            className="relative h-28 w-auto"
+            style={{ minWidth: 320 }}
           >
             <Image
               src="/logo.png"
               alt="Kairós Leadership — Patrick Teixeira"
-              width={260}
-              height={80}
+              width={320}
+              height={112}
               priority
-              className="h-20 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+              className="h-28 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
               style={{ filter: 'drop-shadow(0 0 8px rgba(197,160,89,0.3))' }}
             />
           </div>
@@ -82,8 +93,8 @@ export function Header() {
 
         {/* CTA — Desktop */}
         <div className="hidden lg:flex items-center gap-4">
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2.5 px-6">
-            Diagnóstico Gratuito
+          <a href={cta.link} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2.5 px-6">
+            {cta.label}
           </a>
         </div>
 
@@ -131,11 +142,11 @@ export function Header() {
             </Link>
           ))}
           <a
-            href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer"
+            href={cta.link} target="_blank" rel="noopener noreferrer"
             className="block w-full text-center py-4 bg-gradient-to-r from-[#C5A059] to-[#D4B577] text-[#0A0A0A] font-bold uppercase tracking-wider text-sm mt-4"
             onClick={() => setMenuOpen(false)}
           >
-            Diagnóstico Gratuito
+            {cta.label}
           </a>
         </nav>
       </div>

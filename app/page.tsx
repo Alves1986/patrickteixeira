@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { SiteLayout } from '@/components/layout/SiteLayout'
 import type { Metadata } from 'next'
-import { getContent } from '@/lib/content'
+import { getContent, getSettings } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Patrick Teixeira | Liderança Masculina, Negócios e Legado',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 // -----------------------------------------------
 // HERO SECTION
 // -----------------------------------------------
-function HeroSection({ texts }: { texts: Record<string, string> }) {
+function HeroSection({ texts, settings }: { texts: Record<string, string>, settings: any }) {
   return (
     <section
       id="hero"
@@ -75,8 +75,8 @@ function HeroSection({ texts }: { texts: Record<string, string> }) {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4 w-full sm:w-auto">
-            <span>Quero o Diagnóstico Gratuito →</span>
+          <a href={settings.ctaLink || 'https://form.respondi.app/DQ2AeT6P'} target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4 w-full sm:w-auto">
+            <span>{settings.ctaLabel ? `Quero o ${settings.ctaLabel} →` : 'Quero o Diagnóstico Gratuito →'}</span>
           </a>
           <Link href="/mentoria" className="btn-outline text-base px-8 py-4 w-full sm:w-auto">
             Conheça a Mentoria Kairós
@@ -212,7 +212,7 @@ function ProblemSection() {
 // -----------------------------------------------
 // SOBRE PATRICK SECTION
 // -----------------------------------------------
-function SobreSection() {
+function SobreSection({ texts }: { texts: Record<string, string> }) {
   return (
     <section
       id="sobre"
@@ -288,18 +288,9 @@ function SobreSection() {
                 Integra Negócios e Família
               </span>
             </h2>
-            <p className="text-lg mb-6 leading-relaxed" style={{ color: '#8A8580' }}>
-              Patrick Teixeira não chegou onde está{' '}
-              <em style={{ color: '#C4BFBA' }}>apesar</em> das suas responsabilidades —
-              chegou <em style={{ color: '#C4BFBA' }}>por causa delas</em>. Casado, pai,
-              empresário e mentor, ele entendeu cedo que o verdadeiro teste de um líder
-              não está na sala de reuniões.
-            </p>
-            <p className="text-lg mb-10 leading-relaxed" style={{ color: '#8A8580' }}>
-              Está na mesa de jantar. Usando o Método CIS e sua própria abordagem na{' '}
-              <strong style={{ color: '#C5A059' }}>Mentoria Kairós</strong>, Patrick forma
-              homens que crescem em ambas as frentes — sem negociar com nenhuma delas.
-            </p>
+            <div className="text-lg leading-relaxed space-y-4 mb-10 whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+              {texts.sobre_text || `Patrick Teixeira não chegou onde está apesar das suas responsabilidades — chegou por causa delas. Casado, pai, empresário e mentor, ele entendeu cedo que o verdadeiro teste de um líder não está na sala de reuniões. Está na mesa de jantar.`}
+            </div>
 
             {/* Credenciais */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
@@ -342,20 +333,16 @@ function MentoriaSection() {
     },
     {
       icon: '🏋️',
-      title: 'Alta Performance',
-      desc: 'Rotina que preserva sua saúde e sua presença familiar',
-    },
-    {
-      icon: '🌿',
-      title: 'Legado Duradouro',
-      desc: 'Lembrado não só pelo que acumulou, mas por quem formou',
-    },
+    { title: 'Gestão do Tempo', desc: 'Sistemas para dominar sua agenda e parar de apagar incêndios.', icon: '⌛' },
+    { title: 'Posicionamento', desc: 'Como se portar como autoridade inquestionável no seu mercado.', icon: '♟️' },
+    { title: 'Dinâmica Familiar', desc: 'Como construir uma família inabalável enquanto o negócio cresce.', icon: '🛡️' },
+    { title: 'Performance Física', desc: 'Sem energia não há liderança. O corpo do líder molda seu império.', icon: '⚡' },
   ]
 
   return (
     <section
       id="mentoria"
-      className="section-padding relative overflow-hidden"
+      className="relative section-padding overflow-hidden"
       style={{ background: '#111111' }}
       aria-label="Mentoria Kairós"
     >
@@ -387,10 +374,9 @@ function MentoriaSection() {
               Kairós
             </span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: '#8A8580' }}>
-            Um programa de imersão para homens que querem escalar seus negócios com clareza,
-            liderança e família unida.
-          </p>
+          <div className="text-lg max-w-xl mx-auto whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+            {texts.mentoria_text || `Um programa de imersão para homens que querem escalar seus negócios com clareza, liderança e família unida.`}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -580,7 +566,7 @@ function TestimonialsSection() {
 // -----------------------------------------------
 // LIVRO SECTION
 // -----------------------------------------------
-function LivroSection() {
+function LivroSection({ texts }: { texts: Record<string, string> }) {
   return (
     <section
       id="livro"
@@ -594,7 +580,7 @@ function LivroSection() {
           <div className="flex justify-center">
             <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)' }}>
               <Image
-                src="/images/IMG_2635.PNG"
+                src="/images/IMG_2635.png"
                 alt="Patrick Teixeira com o livro A Escada Invisível"
                 fill
                 className="object-cover"
@@ -622,11 +608,9 @@ function LivroSection() {
                 Invisível Visível
               </span>
             </h2>
-            <p className="text-base mb-6 leading-relaxed" style={{ color: '#8A8580' }}>
-              &ldquo;A Escada Invisível&rdquo; revela os princípios que Patrick aplicou
-              para construir autoridade, resultado e presença — sem sacrificar o que mais importa.
-              Um guia prático para líderes que querem deixar um legado real.
-            </p>
+            <div className="text-base mb-6 leading-relaxed whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+              {texts.livro_text || `“A Escada Invisível” revela os princípios que Patrick aplicou para construir autoridade, resultado e presença — sem sacrificar o que mais importa. Um guia prático para líderes que querem deixar um legado real.`}
+            </div>
             <ul className="space-y-3 mb-8">
               {[
                 'Princípios práticos de liderança aplicáveis imediatamente',
@@ -652,7 +636,10 @@ function LivroSection() {
 // -----------------------------------------------
 // CTA DIAGNÓSTICO SECTION
 // -----------------------------------------------
-function DiagnosticoSection() {
+function DiagnosticoSection({ settings }: { settings: any }) {
+  const ctaLabel = settings?.ctaLabel || 'Diagnóstico Gratuito'
+  const ctaLink = settings?.ctaLink || 'https://form.respondi.app/DQ2AeT6P'
+
   return (
     <section
       id="diagnostico-cta"
@@ -694,8 +681,8 @@ function DiagnosticoSection() {
             Sem compromisso. Sem pressão de venda.
           </p>
 
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-12 py-5">
-            <span>Fazer meu Diagnóstico Gratuito →</span>
+          <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-12 py-5">
+            <span>Fazer meu {ctaLabel} →</span>
           </a>
 
           <p className="text-xs mt-6" style={{ color: '#2A2520' }}>
@@ -712,6 +699,7 @@ function DiagnosticoSection() {
 // -----------------------------------------------
 export default async function HomePage() {
   const contentArray = await getContent()
+  const settings = await getSettings()
   
   // Converter array para objeto { [id]: content } para facilitar uso
   const texts = contentArray.reduce((acc: Record<string, string>, item: any) => {
@@ -721,13 +709,13 @@ export default async function HomePage() {
 
   return (
     <SiteLayout>
-      <HeroSection texts={texts} />
+      <HeroSection texts={texts} settings={settings} />
       <ProblemSection />
-      <SobreSection />
-      <MentoriaSection />
+      <SobreSection texts={texts} />
+      <MentoriaSection texts={texts} />
       <TestimonialsSection />
-      <LivroSection />
-      <DiagnosticoSection />
+      <LivroSection texts={texts} />
+      <DiagnosticoSection settings={settings} />
     </SiteLayout>
   )
 }

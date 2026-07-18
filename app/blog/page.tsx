@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { SiteLayout } from '@/components/layout/SiteLayout'
 import type { Metadata } from 'next'
+import { getPosts } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Blog | Liderança, Negócios e Legado — Patrick Teixeira',
@@ -8,18 +9,9 @@ export const metadata: Metadata = {
     'Artigos de Patrick Teixeira sobre liderança masculina, negócios, família e legado. Conteúdo prático para homens que querem crescer em todas as frentes.',
 }
 
-import { posts } from './data'
+export default async function BlogPage() {
+  const posts = await getPosts()
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Liderança: '#C5A059',
-  Negócios: '#4A7CC7',
-  Família: '#4CAF77',
-  Método: '#9B59B6',
-  Legado: '#D4B577',
-  Performance: '#F0A030',
-}
-
-export default function BlogPage() {
   return (
     <SiteLayout>
       {/* Hero */}
@@ -58,94 +50,113 @@ export default function BlogPage() {
         aria-label="Artigos do blog"
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Post em destaque */}
-          <div className="mb-12">
-            <div
-              className="card p-10 relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg, #161616, #111111)' }}
-            >
-              <div
-                className="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none"
-                style={{
-                  background: 'radial-gradient(circle, rgba(197,160,89,1), transparent)',
-                  filter: 'blur(40px)',
-                }}
-              />
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span
-                    className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-                    style={{
-                      background: `${CATEGORY_COLORS[posts[0].category]}15`,
-                      color: CATEGORY_COLORS[posts[0].category],
-                      border: `1px solid ${CATEGORY_COLORS[posts[0].category]}40`,
-                    }}
-                  >
-                    {posts[0].category}
-                  </span>
-                  <span className="text-xs" style={{ color: '#4A4540' }}>
-                    {new Date(posts[0].date).toLocaleDateString('pt-BR')} · {posts[0].readTime}
-                  </span>
-                </div>
-                <h2
-                  className="text-2xl md:text-3xl font-bold mb-4 max-w-2xl hover:text-gold transition-colors"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          {posts.length === 0 ? (
+             <div className="text-center py-20">
+               <p className="text-[#8A8580]">Nenhum artigo publicado ainda.</p>
+             </div>
+          ) : (
+            <>
+              {/* Post em destaque */}
+              <div className="mb-12">
+                <div
+                  className="card p-10 relative overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg, #161616, #111111)' }}
                 >
-                  <Link href={`/blog/${posts[0].slug}`} style={{ color: '#FAFAFA' }}>
-                    {posts[0].title}
-                  </Link>
-                </h2>
-                <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#8A8580' }}>
-                  {posts[0].excerpt}
-                </p>
-                <Link href={`/blog/${posts[0].slug}`} className="btn-ghost">
-                  Ler artigo completo →
-                </Link>
+                  <div
+                    className="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(circle, rgba(197,160,89,1), transparent)',
+                      filter: 'blur(40px)',
+                    }}
+                  />
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span
+                        className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
+                        style={{
+                          background: `rgba(197,160,89,0.15)`,
+                          color: '#C5A059',
+                          border: `1px solid rgba(197,160,89,0.4)`,
+                        }}
+                      >
+                        Artigo
+                      </span>
+                      <span className="text-xs" style={{ color: '#4A4540' }}>
+                        {posts[0].date} · {posts[0].readTime}
+                      </span>
+                    </div>
+                    <h2
+                      className="text-2xl md:text-3xl font-bold mb-4 max-w-2xl hover:text-gold transition-colors"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    >
+                      <Link href={`/blog/${posts[0].slug}`} style={{ color: '#FAFAFA' }}>
+                        {posts[0].title}
+                      </Link>
+                    </h2>
+                    <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#8A8580' }}>
+                      {posts[0].excerpt}
+                    </p>
+                    <Link
+                      href={`/blog/${posts[0].slug}`}
+                      className="btn-primary text-sm px-6 py-3 inline-flex"
+                    >
+                      <span>Ler artigo completo →</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Grid de posts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.slice(1).map((post) => (
-              <article key={post.slug} className="card p-7 flex flex-col group">
-                <div className="flex items-center gap-3 mb-4">
-                  <span
-                    className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-                    style={{
-                      background: `${CATEGORY_COLORS[post.category]}15`,
-                      color: CATEGORY_COLORS[post.category],
-                      border: `1px solid ${CATEGORY_COLORS[post.category]}40`,
-                    }}
-                  >
-                    {post.category}
-                  </span>
+              {/* Demais posts */}
+              {posts.length > 1 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {posts.slice(1).map((post: any) => (
+                    <article
+                      key={post.slug}
+                      className="card p-6 flex flex-col group h-full"
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <span
+                          className="text-xs font-bold px-2 py-1 rounded-sm uppercase tracking-widest"
+                          style={{
+                            color: '#C5A059',
+                            background: 'rgba(197, 160, 89, 0.1)',
+                          }}
+                        >
+                          Artigo
+                        </span>
+                        <span className="text-xs" style={{ color: '#4A4540' }}>
+                          {post.readTime}
+                        </span>
+                      </div>
+                      <h3
+                        className="text-xl font-bold mb-3 group-hover:text-gold transition-colors"
+                        style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
+                      >
+                        <Link href={`/blog/${post.slug}`}>
+                          {post.title}
+                        </Link>
+                      </h3>
+                      <p className="text-sm leading-relaxed mb-6 flex-1 line-clamp-3" style={{ color: '#8A8580' }}>
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between pt-4 border-t border-[#1E1E1E]">
+                        <span className="text-xs font-semibold" style={{ color: '#4A4540' }}>
+                          {post.date}
+                        </span>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="text-xs font-bold uppercase tracking-widest group-hover:text-gold transition-colors"
+                          style={{ color: '#C5A059' }}
+                        >
+                          Ler mais →
+                        </Link>
+                      </div>
+                    </article>
+                  ))}
                 </div>
-
-                <h3
-                  className="text-lg font-bold mb-3 flex-1 leading-snug group-hover:text-gold transition-colors"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                  <Link href={`/blog/${post.slug}`} style={{ color: '#FAFAFA' }}>
-                    {post.title}
-                  </Link>
-                </h3>
-
-                <p className="text-sm leading-relaxed mb-5" style={{ color: '#4A4540' }}>
-                  {post.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between border-t border-[#1E1E1E] pt-4 mt-auto">
-                  <span className="text-xs" style={{ color: '#4A4540' }}>
-                    {new Date(post.date).toLocaleDateString('pt-BR')} · {post.readTime}
-                  </span>
-                  <Link href={`/blog/${post.slug}`} className="btn-ghost text-xs">
-                    Ler →
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
