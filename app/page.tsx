@@ -260,6 +260,7 @@ function SobreSection() {
                   }}
                 />
               </div>
+            </div>
 
             {/* Card flutuante — livro */}
             <div
@@ -271,7 +272,7 @@ function SobreSection() {
               }}
             >
               <div className="relative w-12 h-16 rounded overflow-hidden shadow-md">
-                <Image src="/images/IMG_2634.PNG" alt="Capa do livro A Escada Invisível" fill className="object-cover" />
+                <Image src="/images/IMG_2634.png" alt="Capa do livro A Escada Invisível" fill className="object-cover" />
               </div>
               <div>
                 <p className="text-xs font-bold" style={{ color: '#FAFAFA' }}>A Escada Invisível</p>

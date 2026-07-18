@@ -38,16 +38,16 @@ export function Header() {
         >
           {/* Fundo escuro atrás da logo branca */}
           <div
-            className="relative h-12 w-auto"
-            style={{ minWidth: 160 }}
+            className="relative h-20 w-auto"
+            style={{ minWidth: 260 }}
           >
             <Image
               src="/logo.png"
               alt="Kairós Leadership — Patrick Teixeira"
-              width={160}
-              height={48}
+              width={260}
+              height={80}
               priority
-              className="h-12 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+              className="h-20 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
               style={{ filter: 'drop-shadow(0 0 8px rgba(197,160,89,0.3))' }}
             />
           </div>

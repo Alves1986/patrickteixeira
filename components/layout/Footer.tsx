@@ -66,9 +66,9 @@ export function Footer() {
                 <Image
                   src="/logo.png"
                   alt="Kairós Leadership — Patrick Teixeira"
-                  width={140}
-                  height={42}
-                  className="h-10 w-auto object-contain"
+                  width={200}
+                  height={60}
+                  className="h-14 w-auto object-contain"
                   style={{ filter: 'drop-shadow(0 0 6px rgba(197,160,89,0.2))' }}
                 />
               </Link>
