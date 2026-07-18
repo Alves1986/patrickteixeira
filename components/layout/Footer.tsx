@@ -25,7 +25,7 @@ export function Footer() {
       role="contentinfo"
     >
       {/* CTA Banner */}
-      <div className="container mb-16">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div
           className="relative rounded-xl overflow-hidden p-10 md:p-14 text-center"
           style={{
@@ -57,7 +57,7 @@ export function Footer() {
       </div>
 
       {/* Footer Links */}
-      <div className="container">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-1">

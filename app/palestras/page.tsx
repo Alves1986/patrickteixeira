@@ -50,7 +50,7 @@ export default function PalestrasPage() {
             filter: 'blur(80px)',
           }}
         />
-        <div className="container relative z-10 text-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <span className="eyebrow mb-6 block justify-center">Eventos & Convenções</span>
           <h1
             className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight"
@@ -81,7 +81,7 @@ export default function PalestrasPage() {
         style={{ background: '#111111' }}
         aria-label="Temas de palestras"
       >
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="eyebrow mb-4 block justify-center">Repertório</span>
             <h2
@@ -148,7 +148,7 @@ export default function PalestrasPage() {
 
       {/* Solicitar palestra */}
       <section className="section-padding" aria-label="Solicitar Patrick para evento">
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <span className="eyebrow mb-6 block justify-center">Leve para seu evento</span>
             <h2

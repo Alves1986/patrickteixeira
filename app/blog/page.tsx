@@ -83,7 +83,7 @@ export default function BlogPage() {
         className="relative pt-32 pb-20 overflow-hidden"
         aria-label="Blog - Hero"
       >
-        <div className="container relative z-10 text-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <span className="eyebrow mb-6 block justify-center">Conteúdo gratuito</span>
           <h1
             className="text-4xl md:text-6xl font-bold mb-6"
@@ -113,7 +113,7 @@ export default function BlogPage() {
         style={{ background: '#111111' }}
         aria-label="Artigos do blog"
       >
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Post em destaque */}
           <div className="mb-12">
             <div
@@ -207,7 +207,7 @@ export default function BlogPage() {
 
       {/* Newsletter / Instagram CTA */}
       <section className="section-padding" aria-label="Seguir conteúdo">
-        <div className="container text-center max-w-lg mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-lg mx-auto">
           <h2
             className="text-2xl md:text-3xl font-bold mb-4"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}

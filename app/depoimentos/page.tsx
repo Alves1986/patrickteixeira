@@ -68,7 +68,7 @@ export default function DepoimentosPage() {
             filter: 'blur(80px)',
           }}
         />
-        <div className="container relative z-10 text-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <span className="eyebrow mb-6 block justify-center">Resultados reais</span>
           <h1
             className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight"
@@ -98,7 +98,7 @@ export default function DepoimentosPage() {
         style={{ background: '#111111' }}
         aria-label="Grid de depoimentos"
       >
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {depoimentos.map((t, i) => (
               <div key={i} className="card p-8 flex flex-col">
@@ -157,7 +157,7 @@ export default function DepoimentosPage() {
 
       {/* CTA */}
       <section className="section-padding" aria-label="Próximo passo">
-        <div className="container text-center max-w-2xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-bold mb-6"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}

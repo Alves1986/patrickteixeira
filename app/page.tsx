@@ -53,7 +53,7 @@ function HeroSection() {
       />
 
       {/* Conteúdo */}
-      <div className="container relative z-10 pt-32 pb-20 text-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20 text-center">
         {/* Eyebrow */}
         <div className="flex justify-center mb-6">
           <span className="eyebrow">Mentoria Kairós · Liderança & Legado</span>
@@ -159,7 +159,7 @@ function ProblemSection() {
       style={{ background: '#111111' }}
       aria-label="O problema que a maioria enfrenta"
     >
-      <div className="container">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <span className="eyebrow mb-4 block">O padrão que você não pode continuar</span>
           <h2
@@ -231,7 +231,7 @@ function SobreSection() {
       className="section-padding"
       aria-label="Sobre Patrick Teixeira"
     >
-      <div className="container">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Imagem / Visual */}
           <div className="relative order-2 lg:order-1">
@@ -398,7 +398,7 @@ function MentoriaSection() {
         }}
       />
 
-      <div className="container relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="eyebrow mb-4 block justify-center">O programa</span>
           <h2
@@ -535,7 +535,7 @@ function TestimonialsSection() {
       className="section-padding"
       aria-label="Depoimentos de alunos"
     >
-      <div className="container">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span className="eyebrow mb-4 block justify-center">Prova social</span>
           <h2
@@ -618,7 +618,7 @@ function LivroSection() {
       style={{ background: '#111111' }}
       aria-label="Livro A Escada Invisível"
     >
-      <div className="container">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
           {/* Capa do livro visual */}
           <div className="flex justify-center">
@@ -669,7 +669,7 @@ function LivroSection() {
                 </li>
               ))}
             </ul>
-            <a href="#" className="btn-outline">
+            <a href="https://wa.me/554298250506?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20livro%20A%20Escada%20Invis%C3%ADvel." target="_blank" rel="noopener noreferrer" className="btn-outline">
               Quero meu exemplar →
             </a>
           </div>
@@ -697,7 +697,7 @@ function DiagnosticoSection() {
         }}
       />
 
-      <div className="container relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <span className="eyebrow mb-6 block justify-center">O primeiro passo custa zero</span>
           <h2

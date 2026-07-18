@@ -29,7 +29,7 @@ export function Header() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="container flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
@@ -106,7 +106,7 @@ export function Header() {
         }`}
         aria-hidden={!menuOpen}
       >
-        <nav className="container py-4 flex flex-col gap-1 border-t border-[#1E1E1E] mt-3">
+        <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-1 border-t border-[#1E1E1E] mt-3">
           {navLinks.map((link) => (
             <Link
               key={link.href}

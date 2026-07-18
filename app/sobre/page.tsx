@@ -24,7 +24,7 @@ export default function SobrePage() {
             filter: 'blur(80px)',
           }}
         />
-        <div className="container relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <span className="eyebrow mb-6 block">A história por trás do método</span>
             <h1
@@ -58,7 +58,7 @@ export default function SobrePage() {
         style={{ background: '#111111' }}
         aria-label="Biografia de Patrick Teixeira"
       >
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start max-w-5xl mx-auto">
             {/* Foto placeholder */}
             <div className="sticky top-32">
@@ -196,7 +196,7 @@ export default function SobrePage() {
 
       {/* Números */}
       <section className="section-padding" aria-label="Números e resultados">
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
             {[
               { value: '1.000+', label: 'Homens Mentorados' },

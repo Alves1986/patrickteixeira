@@ -26,7 +26,7 @@ export default function MentoriaPage() {
           }}
         />
 
-        <div className="container relative z-10 text-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <span className="eyebrow mb-6 block justify-center">O programa de transformação</span>
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl mx-auto leading-tight"
@@ -57,7 +57,7 @@ export default function MentoriaPage() {
 
       {/* O que é Kairós */}
       <section className="section-padding" aria-label="O que é Mentoria Kairós">
-        <div className="container max-w-4xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="eyebrow mb-4 block justify-center">A origem do nome</span>
             <h2
@@ -107,7 +107,7 @@ export default function MentoriaPage() {
         style={{ background: '#111111' }}
         aria-label="Para quem é a Mentoria Kairós"
       >
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="eyebrow mb-4 block justify-center">Critérios de entrada</span>
             <h2
@@ -182,7 +182,7 @@ export default function MentoriaPage() {
 
       {/* O que você vai construir */}
       <section className="section-padding" aria-label="O que você constrói na Mentoria Kairós">
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="eyebrow mb-4 block justify-center">Resultados concretos</span>
             <h2
@@ -264,7 +264,7 @@ export default function MentoriaPage() {
           className="absolute inset-0 opacity-5 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(197,160,89,1), transparent)' }}
         />
-        <div className="container relative z-10 text-center max-w-2xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-2xl mx-auto">
           <h2
             className="text-3xl md:text-4xl font-bold mb-6"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}

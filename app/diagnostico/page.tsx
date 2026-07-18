@@ -63,7 +63,7 @@ export default function DiagnosticoPage() {
             filter: 'blur(60px)',
           }}
         />
-        <div className="container relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-2xl mx-auto text-center">
             <span className="eyebrow mb-6 block justify-center">Gratuito · Sem compromisso</span>
             <h1
@@ -92,7 +92,7 @@ export default function DiagnosticoPage() {
 
       {/* Formulário */}
       <section className="section-padding-sm pb-24" aria-label="Formulário de diagnóstico">
-        <div className="container">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-xl mx-auto">
             {!submitted ? (
               <form
