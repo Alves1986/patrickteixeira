@@ -8,63 +8,7 @@ export const metadata: Metadata = {
     'Artigos de Patrick Teixeira sobre liderança masculina, negócios, família e legado. Conteúdo prático para homens que querem crescer em todas as frentes.',
 }
 
-// Posts estáticos de exemplo (serão substituídos pelo Supabase)
-const posts = [
-  {
-    slug: 'o-mito-do-sacrificio-familiar',
-    title: 'O Mito do Sacrifício Familiar: por que você não precisa escolher entre negócio e família',
-    excerpt:
-      'A maioria dos empreendedores acredita que crescer no negócio exige sacrificar o tempo em família. Este artigo desmonta esse mito com dados e método prático.',
-    category: 'Liderança',
-    date: '2026-07-01',
-    readTime: '7 min',
-  },
-  {
-    slug: 'como-delegar-sem-perder-controle',
-    title: 'Como Delegar Sem Perder o Controle (e Recuperar 3h do seu Dia)',
-    excerpt:
-      'Delegação é a habilidade que mais liberta líderes — e a que mais gera medo. Veja o framework que uso com mentorados para criar times que funcionam sem você.',
-    category: 'Negócios',
-    date: '2026-06-15',
-    readTime: '9 min',
-  },
-  {
-    slug: 'o-que-e-kairos',
-    title: 'O que é Kairós — e Por Que o Momento Certo Muda Tudo',
-    excerpt:
-      'Kairós é uma palavra grega que significa "o momento oportuno". Mas o que ela tem a ver com liderança, família e decisões de negócio? Tudo.',
-    category: 'Método',
-    date: '2026-06-01',
-    readTime: '5 min',
-  },
-  {
-    slug: 'lideranca-que-comeca-em-casa',
-    title: 'A Liderança que Começa em Casa: como ser pai e empresário sem falhar em nenhum dos dois',
-    excerpt:
-      'O maior erro que vejo em empreendedores de sucesso: lideram times de 50 pessoas, mas não conseguem liderar uma conversa difícil com o filho adolescente.',
-    category: 'Família',
-    date: '2026-05-20',
-    readTime: '8 min',
-  },
-  {
-    slug: 'a-escala-invisivel-conceito',
-    title: 'A Escada Invisível: o que mede o sucesso que nenhuma planilha mostra',
-    excerpt:
-      'Existem dois tipos de crescimento: o visível (faturamento, equipe, lucro) e o invisível (autoridade, presença, paz interior). O segundo sustenta o primeiro.',
-    category: 'Legado',
-    date: '2026-05-10',
-    readTime: '6 min',
-  },
-  {
-    slug: 'rotina-de-alta-performance-real',
-    title: 'Rotina de Alta Performance Real: sem 5h da manhã, sem maratona, sem culpa',
-    excerpt:
-      'Cansei de ver líderes destruindo saúde e família em nome de uma "rotina de alta performance" instagramável. Este artigo mostra o que funciona na vida real.',
-    category: 'Performance',
-    date: '2026-04-28',
-    readTime: '10 min',
-  },
-]
+import { posts } from './data'
 
 const CATEGORY_COLORS: Record<string, string> = {
   Liderança: '#C5A059',
