@@ -265,32 +265,7 @@ export default async function MentoriaPage() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section
-        className="section-padding relative overflow-hidden"
-        style={{ background: '#111111' }}
-        aria-label="CTA Mentoria Kairós"
-      >
-        <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(197,160,89,1), transparent)' }}
-        />
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-2xl mx-auto">
-          <h2
-            className="text-3xl md:text-4xl font-bold mb-6"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            O Próximo Passo é Seu
-          </h2>
-          <p className="text-lg mb-8" style={{ color: '#8A8580' }}>
-            Comece com um diagnóstico gratuito de 20 minutos. Sem compromisso, sem pressão.
-            Apenas clareza sobre onde você está e para onde pode ir.
-          </p>
-          <Link href="/diagnostico" className="btn-primary text-base px-10 py-4">
-            <span>Quero meu Diagnóstico Gratuito →</span>
-          </Link>
-        </div>
-      </section>
+
     </SiteLayout>
   )
 }
