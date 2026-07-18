@@ -319,7 +319,7 @@ function SobreSection({ texts }: { texts: Record<string, string> }) {
 // -----------------------------------------------
 // MENTORIA KAIRÓS SECTION
 // -----------------------------------------------
-function MentoriaSection() {
+function MentoriaSection({ texts }: { texts: Record<string, string> }) {
   const features = [
     {
       icon: '⚙️',
