@@ -441,19 +441,6 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
             </ul>
           </div>
         </div>
-
-        {/* CTA */}
-        <div className="text-center">
-          <p className="text-sm mb-6 font-semibold tracking-wider uppercase" style={{ color: '#4A4540' }}>
-            Vagas limitadas por turma
-          </p>
-          <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
-            <span>Fazer Diagnóstico Gratuito →</span>
-          </a>
-          <p className="text-xs mt-4" style={{ color: '#2A2520' }}>
-            Sem compromisso · Sem pressão de venda · 20 minutos
-          </p>
-        </div>
       </div>
     </section>
   )
@@ -633,67 +620,6 @@ function LivroSection({ texts }: { texts: Record<string, string> }) {
 }
 
 // -----------------------------------------------
-// CTA DIAGNÓSTICO SECTION
-// -----------------------------------------------
-function DiagnosticoSection({ settings }: { settings: any }) {
-  const ctaLabel = settings?.ctaLabel || 'Diagnóstico Gratuito'
-  const ctaLink = settings?.ctaLink || 'https://form.respondi.app/DQ2AeT6P'
-
-  return (
-    <section
-      id="diagnostico-cta"
-      className="section-padding relative overflow-hidden"
-      aria-label="CTA Diagnóstico Gratuito"
-    >
-      {/* Fundo com glow */}
-      <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(197,160,89,1) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="eyebrow mb-6 block justify-center">O primeiro passo custa zero</span>
-          <h2
-            className="text-3xl md:text-5xl font-bold mb-6"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Pronto para Descobrir Seu{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Próximo Passo?
-            </span>
-          </h2>
-          <p className="text-lg mb-4 leading-relaxed" style={{ color: '#8A8580' }}>
-            Um diagnóstico gratuito de 20 minutos para entender onde você está travado
-            e qual o caminho mais curto para onde quer chegar.
-          </p>
-          <p className="text-base mb-10 font-medium" style={{ color: '#C4BFBA' }}>
-            Sem compromisso. Sem pressão de venda.
-          </p>
-
-          <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-12 py-5">
-            <span>Fazer meu {ctaLabel} →</span>
-          </a>
-
-          <p className="text-xs mt-6" style={{ color: '#2A2520' }}>
-            Vagas limitadas por semana · Preenchimento online · Retorno em até 24h
-          </p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// -----------------------------------------------
 // HOME PAGE
 // -----------------------------------------------
 export default async function HomePage() {
@@ -714,8 +640,6 @@ export default async function HomePage() {
       <MentoriaSection texts={texts} />
       <TestimonialsSection />
       <LivroSection texts={texts} />
-      <DiagnosticoSection settings={settings} />
     </SiteLayout>
   )
 }
-
