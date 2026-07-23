@@ -145,14 +145,14 @@ export default async function MentoriaPage() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  'Tem empresa estabelecida e sente crescimento e família em conflito',
-                  'Chegou ao topo mas perdeu presença e conexão em casa',
-                  'Quer resultado mensurável — não apenas inspiração de palco',
-                  'Está disposto a ser honesto consigo mesmo e com o processo',
-                  'Pensa em legado, não só em faturamento',
+                  'Para homens entre 25 e 45 anos que ocupam cargos de liderança ou são empresários.',
+                  'Para quem conquistou resultados profissionais, mas percebe que está perdendo a paz, o casamento, a presença na vida dos filhos ou o equilíbrio.',
+                  'Para quem está preso no operacional e quer desenvolver uma liderança mais estratégica, aprendendo a delegar e formar pessoas.',
+                  'Para quem deseja crescer profissionalmente sem abrir mão dos princípios, da fé e da família.',
+                  'Para homens que estão dispostos a assumir a responsabilidade pela própria transformação e colocar em prática o que aprenderem.',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="text-[#4CAF77] flex-shrink-0 mt-0.5">●</span>
+                    <span className="text-[#4CAF77] flex-shrink-0 mt-0.5">✔</span>
                     <span className="text-sm leading-relaxed" style={{ color: '#8A8580' }}>{item}</span>
                   </li>
                 ))}
@@ -174,20 +174,37 @@ export default async function MentoriaPage() {
               </h3>
               <ul className="space-y-4">
                 {[
-                  'Busca motivação de palco que dura uma semana',
-                  'Não está disposto a implementar o que aprende',
-                  'Quer atalho sem processo',
-                  'Não vê problema em crescer no negócio sacrificando a família',
-                  'Está procurando um grupo de networking, não transformação',
+                  'Homens que procuram fórmulas rápidas ou atalhos para o sucesso.',
+                  'Quem acredita que a culpa da própria situação é sempre da empresa, da esposa, do mercado ou de outras pessoas.',
+                  'Quem não está disposto a mudar hábitos, enfrentar seus próprios desafios e viver com disciplina.',
+                  'Quem busca apenas técnicas de liderança, sem interesse em desenvolver caráter, inteligência emocional e relacionamentos.',
+                  'Quem não valoriza princípios, família e uma transformação integral.',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="text-[#E05252] flex-shrink-0 mt-0.5">●</span>
+                    <span className="text-[#E05252] flex-shrink-0 mt-0.5">✘</span>
                     <span className="text-sm leading-relaxed" style={{ color: '#8A8580' }}>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* Posicionamento */}
+        <div
+          className="mt-12 max-w-4xl mx-auto p-8 rounded-2xl text-center"
+          style={{
+            background: 'linear-gradient(135deg, rgba(197,160,89,0.06) 0%, rgba(197,160,89,0.02) 100%)',
+            border: '1px solid rgba(197,160,89,0.25)',
+          }}
+        >
+          <p
+            className="text-lg md:text-xl leading-relaxed italic"
+            style={{ color: '#C4BFBA', fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            &ldquo;O Método Kairós não foi criado para formar apenas líderes de sucesso. Foi criado para formar homens cujo sucesso profissional fortalece, e não destrói, o legado da própria família.&rdquo;
+          </p>
+          <p className="mt-4 text-sm font-semibold tracking-widest uppercase" style={{ color: '#C5A059' }}>— Patrick Teixeira</p>
         </div>
       </section>
 

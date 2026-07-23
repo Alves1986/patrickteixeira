@@ -30,7 +30,8 @@ const initialPosts = [
 
 const initialSettings = {
   ctaLabel: 'Diagnóstico Gratuito',
-  ctaLink: 'https://form.respondi.app/DQ2AeT6P'
+  ctaLink: 'https://form.respondi.app/DQ2AeT6P',
+  bookLink: '',
 }
 
 // Usando globalThis para manter o estado em memória na Vercel (temporário até o Supabase)

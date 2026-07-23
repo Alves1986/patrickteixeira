@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react'
 type Settings = {
   ctaLabel: string
   ctaLink: string
+  bookLink?: string
 }
 
 export function SettingsTab() {
-  const [settings, setSettings] = useState<Settings>({ ctaLabel: '', ctaLink: '' })
+  const [settings, setSettings] = useState<Settings>({ ctaLabel: '', ctaLink: '', bookLink: '' })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
@@ -99,6 +100,20 @@ export function SettingsTab() {
                 className="form-field" 
                 placeholder="Ex: https://form.respondi.app/..." 
               />
+            </div>
+
+            <div>
+              <label className="form-label">Link de Compra do Livro</label>
+              <input 
+                type="url" 
+                value={settings.bookLink || ''} 
+                onChange={e => setSettings({ ...settings, bookLink: e.target.value })} 
+                className="form-field" 
+                placeholder="Ex: https://loja.amazon.com.br/..." 
+              />
+              <p className="text-xs mt-1" style={{ color: '#4A4540' }}>
+                Quando preenchido, após o formulário de solicitação do livro o usuário verá o botão de compra direto. Deixe em branco para não exibir.
+              </p>
             </div>
           </div>
 

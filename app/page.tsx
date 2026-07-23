@@ -1,14 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { SiteLayout } from '@/components/layout/SiteLayout'
-import type { Metadata } from 'next'
-import { getContent, getSettings } from '@/lib/content'
-
-export const metadata: Metadata = {
-  title: 'Patrick Teixeira | Liderança Masculina, Negócios e Legado',
-  description:
-    'Mentoria Kairós: Formando homens que prosperam nos negócios sem sacrificar a família. Diagnóstico gratuito disponível.',
-}
+import { useState, useEffect } from 'react'
+// Metadata is defined in layout.tsx (use client pages can't export metadata)
 
 // -----------------------------------------------
 // HERO SECTION
@@ -134,10 +130,10 @@ function HeroSection({ texts, settings }: { texts: Record<string, string>, setti
 // -----------------------------------------------
 function ProblemSection() {
   const problems = [
-    'Trabalha 12h por dia mas sente que não avança onde realmente importa',
-    'Chegou em casa tarde demais para ver seus filhos acordados — de novo',
-    'Já leu dezenas de livros de liderança e ainda não sabe como aplicar em casa',
-    'Sente que para crescer no negócio, precisa abrir mão da família',
+    'Você cresce profissionalmente, mas sente que sua família está pagando o preço.',
+    'Você trabalha cada vez mais, mas continua preso no operacional.',
+    'Você lidera equipes, mas não consegue liderar suas emoções e sua própria casa.',
+    'Você sente que está construindo patrimônio, mas não o legado que gostaria de deixar para seus filhos.',
   ]
 
   return (
@@ -331,11 +327,11 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
       title: 'Autoridade Real',
       desc: 'Liderança genuína — na empresa e em casa, sem máscara',
     },
-
     { title: 'Gestão do Tempo', desc: 'Sistemas para dominar sua agenda e parar de apagar incêndios.', icon: '⌛' },
     { title: 'Posicionamento', desc: 'Como se portar como autoridade inquestionável no seu mercado.', icon: '♟️' },
     { title: 'Dinâmica Familiar', desc: 'Como construir uma família inabalável enquanto o negócio cresce.', icon: '🛡️' },
     { title: 'Performance Física', desc: 'Sem energia não há liderança. O corpo do líder molda seu império.', icon: '⚡' },
+    { title: 'Vida Espiritual', desc: 'Fé prática como fundação inabalável para a liderança integral.', icon: '🙏' },
   ]
 
   return (
@@ -398,22 +394,24 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
         </div>
 
         {/* Para quem é / não é */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-4xl mx-auto">
           <div
             className="p-8 rounded-xl"
             style={{ background: '#161616', border: '1px solid rgba(76, 175, 119, 0.2)' }}
           >
             <h3 className="font-bold mb-5 flex items-center gap-2" style={{ color: '#4CAF77' }}>
-              <span>✓</span> Para quem é
+              <span>✔</span> Para quem é a Mentoria Método Kairós
             </h3>
             <ul className="space-y-3">
               {[
-                'Empreendedores com empresa estabelecida',
-                'Executivos que chegaram ao topo mas perderam presença em casa',
-                'Homens que querem deixar um legado real — não só dinheiro',
+                'Para homens entre 25 e 45 anos que ocupam cargos de liderança ou são empresários.',
+                'Para quem conquistou resultados profissionais, mas percebe que está perdendo a paz, o casamento, a presença na vida dos filhos ou o equilíbrio.',
+                'Para quem está preso no operacional e quer desenvolver uma liderança mais estratégica, aprendendo a delegar e formar pessoas.',
+                'Para quem deseja crescer profissionalmente sem abrir mão dos princípios, da fé e da família.',
+                'Para homens que estão dispostos a assumir a responsabilidade pela própria transformação e colocar em prática o que aprenderem.',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="text-[#4CAF77] mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-[#4CAF77] mt-0.5 flex-shrink-0">✔</span>
                   <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
                 </li>
               ))}
@@ -425,21 +423,40 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
             style={{ background: '#161616', border: '1px solid rgba(224, 82, 82, 0.2)' }}
           >
             <h3 className="font-bold mb-5 flex items-center gap-2" style={{ color: '#E05252' }}>
-              <span>✗</span> Para quem NÃO é
+              <span>✘</span> Para quem NÃO é
             </h3>
             <ul className="space-y-3">
               {[
-                'Quem busca motivação de palco sem aplicação prática',
-                'Quem não está disposto a ser honesto consigo mesmo',
-                'Quem quer resultado sem processo e sem compromisso',
+                'Homens que procuram fórmulas rápidas ou atalhos para o sucesso.',
+                'Quem acredita que a culpa da própria situação é sempre da empresa, da esposa, do mercado ou de outras pessoas.',
+                'Quem não está disposto a mudar hábitos, enfrentar seus próprios desafios e viver com disciplina.',
+                'Quem busca apenas técnicas de liderança, sem interesse em desenvolver caráter, inteligência emocional e relacionamentos.',
+                'Quem não valoriza princípios, família e uma transformação integral.',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="text-[#E05252] mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-[#E05252] mt-0.5 flex-shrink-0">✘</span>
                   <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Posicionamento */}
+        <div
+          className="max-w-4xl mx-auto p-8 rounded-2xl text-center"
+          style={{
+            background: 'linear-gradient(135deg, rgba(197,160,89,0.06) 0%, rgba(197,160,89,0.02) 100%)',
+            border: '1px solid rgba(197,160,89,0.25)',
+          }}
+        >
+          <p
+            className="text-lg md:text-xl leading-relaxed italic"
+            style={{ color: '#C4BFBA', fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            &ldquo;O Método Kairós não foi criado para formar apenas líderes de sucesso. Foi criado para formar homens cujo sucesso profissional fortalece, e não destrói, o legado da própria família.&rdquo;
+          </p>
+          <p className="mt-4 text-sm font-semibold tracking-widest uppercase" style={{ color: '#C5A059' }}>— Patrick Teixeira</p>
         </div>
       </div>
     </section>
@@ -550,87 +567,260 @@ function TestimonialsSection() {
 }
 
 // -----------------------------------------------
+// LIVRO FORM MODAL
+// -----------------------------------------------
+function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?: string }) {
+  const [form, setForm] = useState({ nome: '', whatsapp: '', email: '' })
+  const [loading, setLoading] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.nome,
+          whatsapp: form.whatsapp,
+          email: form.email,
+          business: 'Solicitação do Livro',
+          pain_description: 'Solicitou o livro A Escada Invisível pelo site.',
+          source: 'livro',
+        }),
+      })
+      if (res.ok || res.status === 201) {
+        setSent(true)
+      } else {
+        setError('Ocorreu um erro. Tente novamente.')
+      }
+    } catch {
+      setError('Ocorreu um erro. Tente novamente.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)' }}
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-md rounded-2xl p-8 relative"
+        style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.25)', boxShadow: '0 20px 60px rgba(0,0,0,0.8)' }}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Fechar */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full transition-colors"
+          style={{ background: '#1E1E1E', color: '#8A8580' }}
+          aria-label="Fechar formulário"
+        >
+          ✕
+        </button>
+
+        {!sent ? (
+          <>
+            <div className="mb-6">
+              <span className="eyebrow mb-2 block">Solicitar o Livro</span>
+              <h3
+                className="text-2xl font-bold"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
+              >
+                A Escada Invisível
+              </h3>
+              <p className="text-sm mt-2" style={{ color: '#8A8580' }}>
+                Preencha os dados abaixo e nossa equipe entrará em contato.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4" id="form-livro">
+              <div>
+                <label className="form-label" htmlFor="livro-nome">Nome completo</label>
+                <input
+                  id="livro-nome"
+                  type="text"
+                  required
+                  className="form-field"
+                  placeholder="Seu nome"
+                  value={form.nome}
+                  onChange={e => setForm({ ...form, nome: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="form-label" htmlFor="livro-whatsapp">WhatsApp</label>
+                <input
+                  id="livro-whatsapp"
+                  type="tel"
+                  required
+                  className="form-field"
+                  placeholder="(00) 00000-0000"
+                  value={form.whatsapp}
+                  onChange={e => setForm({ ...form, whatsapp: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="form-label" htmlFor="livro-email">E-mail</label>
+                <input
+                  id="livro-email"
+                  type="email"
+                  required
+                  className="form-field"
+                  placeholder="seu@email.com"
+                  value={form.email}
+                  onChange={e => setForm({ ...form, email: e.target.value })}
+                />
+              </div>
+
+              {error && <p className="text-sm" style={{ color: '#E05252' }}>{error}</p>}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-primary w-full mt-2"
+                id="btn-solicitar-livro"
+              >
+                <span>{loading ? 'Enviando...' : 'Solicitar o Livro →'}</span>
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="text-center py-4">
+            <div className="text-5xl mb-4">📖</div>
+            <h3
+              className="text-xl font-bold mb-3"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
+            >
+              Solicitação Recebida!
+            </h3>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: '#8A8580' }}>
+              Nossa equipe entrará em contato pelo WhatsApp informado para enviar o link do livro.
+            </p>
+            {bookLink && (
+              <div
+                className="p-4 rounded-xl mb-4"
+                style={{ background: 'rgba(197,160,89,0.08)', border: '1px solid rgba(197,160,89,0.2)' }}
+              >
+                <p className="text-xs font-semibold tracking-wider uppercase mb-2" style={{ color: '#C5A059' }}>Link de compra disponível</p>
+                <a
+                  href={bookLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary text-sm py-2 px-6 inline-block"
+                  id="link-compra-livro"
+                >
+                  <span>Comprar o Livro →</span>
+                </a>
+              </div>
+            )}
+            <button onClick={onClose} className="btn-ghost text-sm">Fechar</button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// -----------------------------------------------
 // LIVRO SECTION
 // -----------------------------------------------
-function LivroSection({ texts }: { texts: Record<string, string> }) {
-  return (
-    <section
-      id="livro"
-      className="section-padding"
-      style={{ background: '#111111' }}
-      aria-label="Livro A Escada Invisível"
-    >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
-          {/* Capa do livro visual */}
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)' }}>
-              <Image
-                src="/images/IMG_2635.png"
-                alt="Patrick Teixeira com o livro A Escada Invisível"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-            </div>
-          </div>
+function LivroSection({ texts, bookLink }: { texts: Record<string, string>; bookLink?: string }) {
+  const [modalOpen, setModalOpen] = useState(false)
 
-          {/* Texto */}
-          <div>
-            <span className="eyebrow mb-4 block">O livro</span>
-            <h2
-              className="text-3xl md:text-4xl font-bold mb-5"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              O Livro que Torna o{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                Invisível Visível
-              </span>
-            </h2>
-            <div className="text-base mb-6 leading-relaxed whitespace-pre-wrap" style={{ color: '#8A8580' }}>
-              {texts.livro_text || `“A Escada Invisível” revela os princípios que Patrick aplicou para construir autoridade, resultado e presença — sem sacrificar o que mais importa. Um guia prático para líderes que querem deixar um legado real.`}
+  return (
+    <>
+      {modalOpen && <LivroFormModal onClose={() => setModalOpen(false)} bookLink={bookLink} />}
+      <section
+        id="livro"
+        className="section-padding"
+        style={{ background: '#111111' }}
+        aria-label="Livro A Escada Invisível"
+      >
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
+            {/* Capa do livro visual */}
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)' }}>
+                <Image
+                  src="/images/IMG_2635.png"
+                  alt="Patrick Teixeira com o livro A Escada Invisível"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
             </div>
-            <ul className="space-y-3 mb-8">
-              {[
-                'Princípios práticos de liderança aplicáveis imediatamente',
-                'Método para integrar negócios e família no mesmo sistema',
-                'Casos reais de transformação de líderes brasileiros',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1 flex-shrink-0" style={{ color: '#C5A059' }}>◆</span>
-                  <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <a href="https://wa.me/554298250506?text=GOSTARIA%20DE%20ADQUIRIR%20O%20LIVRO%20%22A%20ESCADA%20INVISIVEL%22" target="_blank" rel="noopener noreferrer" className="btn-outline">
-              Quero meu exemplar →
-            </a>
+
+            {/* Texto */}
+            <div>
+              <span className="eyebrow mb-4 block">O livro</span>
+              <h2
+                className="text-3xl md:text-4xl font-bold mb-5"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              >
+                O Livro que Torna o{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #C5A059, #D4B577)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  Invisível Visível
+                </span>
+              </h2>
+              <div className="text-base mb-6 leading-relaxed whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+                {texts.livro_text || `"A Escada Invisível" revela os princípios que Patrick aplicou para construir autoridade, resultado e presença — sem sacrificar o que mais importa. Um guia prático para líderes que querem deixar um legado real.`}
+              </div>
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Princípios práticos de liderança aplicáveis imediatamente',
+                  'Método do que acontece nos bastidores corporativo e que te faz alavancar a carreira.',
+                  'Casos reais de transformação de líderes brasileiros',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-1 flex-shrink-0" style={{ color: '#C5A059' }}>◆</span>
+                    <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                id="btn-quero-exemplar"
+                onClick={() => setModalOpen(true)}
+                className="btn-outline"
+              >
+                Quero meu exemplar →
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
 // -----------------------------------------------
 // HOME PAGE
 // -----------------------------------------------
-export default async function HomePage() {
-  const contentArray = await getContent()
-  const settings = await getSettings()
-  
-  // Converter array para objeto { [id]: content } para facilitar uso
-  const texts = contentArray.reduce((acc: Record<string, string>, item: any) => {
-    acc[item.id] = item.content
-    return acc
-  }, {})
+export default function HomePage() {
+  const [bookLink, setBookLink] = useState('')
+  const texts: Record<string, string> = {}
+  const settings = { ctaLabel: 'Diagnóstico Gratuito', ctaLink: 'https://form.respondi.app/DQ2AeT6P' }
+
+  // Busca o link do livro configurado no admin
+  useEffect(() => {
+    fetch('/api/admin/settings')
+      .then(r => r.json())
+      .then(d => { if (d?.bookLink) setBookLink(d.bookLink) })
+      .catch(() => {})
+  }, [])
 
   return (
     <SiteLayout>
@@ -639,7 +829,7 @@ export default async function HomePage() {
       <SobreSection texts={texts} />
       <MentoriaSection texts={texts} />
       <TestimonialsSection />
-      <LivroSection texts={texts} />
+      <LivroSection texts={texts} bookLink={bookLink} />
     </SiteLayout>
   )
 }
