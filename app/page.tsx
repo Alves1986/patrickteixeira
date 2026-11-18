@@ -1,86 +1,68 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
 import { SiteLayout } from '@/components/layout/SiteLayout'
 import { useState, useEffect } from 'react'
-// Metadata is defined in layout.tsx (use client pages can't export metadata)
+import {
+  IconActivity,
+  IconArrowRight,
+  IconAward,
+  IconBookOpen,
+  IconCheck,
+  IconClock,
+  IconCompass,
+  IconCrown,
+  IconHeartHandshake,
+  IconMic,
+  IconSettings,
+  IconShield,
+  IconStar,
+  IconX,
+} from '@/components/ui/Icons'
 
 // -----------------------------------------------
 // HERO SECTION
 // -----------------------------------------------
-function HeroSection({ texts, settings }: { texts: Record<string, string>, settings: any }) {
+function HeroSection({ texts, settings }: { texts: Record<string, string>; settings: any }) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center bg-[#0A0A0A] border-b border-[#27272A]"
       aria-label="Hero Principal"
     >
-      {/* Background — gradiente escuro premium */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(197,160,89,0.08) 0%, transparent 60%), #0A0A0A',
-          }}
-        />
-        {/* Linha decorativa horizontal */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.3), transparent)' }}
-        />
-      </div>
-
-      {/* Orbs de luz dourados */}
-      <div
-        className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none opacity-20"
-        style={{
-          background: 'radial-gradient(circle, rgba(197,160,89,0.5) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          animation: 'glow-pulse 5s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute bottom-1/3 left-1/5 w-64 h-64 rounded-full pointer-events-none opacity-10"
-        style={{
-          background: 'radial-gradient(circle, rgba(197,160,89,0.6) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-          animation: 'glow-pulse 7s ease-in-out infinite 2s',
-        }}
-      />
-
-      {/* Conteúdo */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20 text-center">
-        {/* Eyebrow */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 text-center">
         <div className="flex justify-center mb-6">
-          <span className="eyebrow">Mentoria Kairós · Liderança & Legado</span>
+          <span className="eyebrow">Mentoria Kairós · Liderança &amp; Legado</span>
         </div>
 
-        {/* Headline principal */}
         <h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-5xl mx-auto leading-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-5xl mx-auto leading-tight text-[#FAFAFA]"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
-          {texts.home_hero_title || 'Homens Constroem Negócios. Lideres Constroem Legados.'}
+          {texts.home_hero_title || 'Liderança para empresários que querem crescer sem perder a família: 1.000+ homens formados em 10 anos.'}
         </h1>
 
-        {/* Subheadline */}
-        <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: '#8A8580' }}>
+        <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-[#B8B2AC]">
           {texts.home_hero_subtitle || 'Liderança não é apenas sobre faturamento. É sobre governar a própria vida, construir negócios sólidos e liderar a família com honra.'}
         </p>
 
-        {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <a href={settings.ctaLink || 'https://form.respondi.app/DQ2AeT6P'} target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4 w-full sm:w-auto">
-            <span>{settings.ctaLabel ? `Quero o ${settings.ctaLabel} →` : 'Quero o Diagnóstico Gratuito →'}</span>
+          <a
+            href={settings.ctaLink || 'https://form.respondi.app/DQ2AeT6P'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-base px-8 py-4 w-full sm:w-auto"
+          >
+            <span>{settings.ctaLabel ? `Quero o ${settings.ctaLabel}` : 'Quero o Diagnóstico Gratuito'}</span>
+            <IconArrowRight className="w-5 h-5" />
           </a>
           <Link href="/mentoria" className="btn-outline text-base px-8 py-4 w-full sm:w-auto">
             Conheça a Mentoria Kairós
           </Link>
         </div>
 
-        {/* Credenciais rápidas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto pt-8 border-t border-[#27272A]">
           {[
             { value: '1.000+', label: 'Homens Formados' },
             { value: '10+', label: 'Anos de Mentoria' },
@@ -89,37 +71,17 @@ function HeroSection({ texts, settings }: { texts: Record<string, string>, setti
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div
-                className="text-3xl md:text-4xl font-bold mb-1"
-                style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
+                className="text-3xl md:text-4xl font-bold mb-2 text-[#C5A059] tabular-nums"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
                 {stat.value}
               </div>
-              <div className="text-xs font-semibold tracking-widest uppercase" style={{ color: '#4A4540' }}>
+              <div className="text-xs font-semibold tracking-widest uppercase text-[#B8B2AC]">
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-[10px] tracking-[0.2em] uppercase" style={{ color: '#C5A059' }}>
-          Role para baixo
-        </span>
-        <div
-          className="w-px h-10"
-          style={{
-            background: 'linear-gradient(180deg, #C5A059, transparent)',
-            animation: 'float 2s ease-in-out infinite',
-          }}
-        />
       </div>
     </section>
   )
@@ -139,63 +101,44 @@ function ProblemSection() {
   return (
     <section
       id="problema"
-      className="section-padding"
-      style={{ background: '#111111' }}
+      className="section-padding bg-[#111111]"
       aria-label="O problema que a maioria enfrenta"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <span className="eyebrow mb-4 block">O padrão que você não pode continuar</span>
           <h2
-            className="text-3xl md:text-5xl font-bold mb-12"
+            className="text-3xl md:text-5xl font-bold mb-12 text-[#FAFAFA]"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            Você reconhece{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              algum desses padrões?
-            </span>
+            Você reconhece <span className="text-[#C5A059]">algum desses padrões?</span>
           </h2>
 
           <div className="space-y-4 mb-12">
             {problems.map((problem, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 p-5 rounded-lg border border-[#1E1E1E] bg-[#0A0A0A] hover:border-[rgba(197,160,89,0.15)] transition-all duration-300"
+                className="flex items-start gap-4 p-6 rounded-[8px] border border-[#27272A] bg-[#0A0A0A]"
               >
-                <div
-                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5"
-                  style={{ background: 'rgba(224, 82, 82, 0.1)', border: '1px solid rgba(224,82,82,0.3)' }}
-                >
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M2 2L8 8M8 2L2 8" stroke="#E05252" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
+                <div className="flex-shrink-0 w-8 h-8 rounded-[4px] border border-[#71717A] flex items-center justify-center text-[#B8B2AC]">
+                  <IconX className="w-5 h-5" />
                 </div>
-                <p className="text-base" style={{ color: '#8A8580' }}>
-                  {problem}
-                </p>
+                <p className="text-base text-[#B8B2AC]">{problem}</p>
               </div>
             ))}
           </div>
 
-          {/* Virada */}
-          <div
-            className="p-8 rounded-xl text-center"
-            style={{
-              background: 'linear-gradient(135deg, rgba(197,160,89,0.08) 0%, rgba(197,160,89,0.03) 100%)',
-              border: '1px solid rgba(197,160,89,0.2)',
-            }}
-          >
-            <p className="text-xl md:text-2xl font-semibold" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', Georgia, serif" }}>
+          <div className="p-8 rounded-[16px] text-center bg-[#161616] border border-[#27272A]">
+            <p
+              className="text-xl md:text-2xl font-semibold text-[#FAFAFA] mb-2"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
               Isso não é falha de caráter.
             </p>
-            <p className="text-xl md:text-2xl" style={{ color: '#C5A059', fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <p
+              className="text-xl md:text-2xl text-[#C5A059]"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
               É falta de sistema.
             </p>
           </div>
@@ -212,55 +155,32 @@ function SobreSection({ texts }: { texts: Record<string, string> }) {
   return (
     <section
       id="sobre"
-      className="section-padding"
+      className="section-padding bg-[#0A0A0A]"
       aria-label="Sobre Patrick Teixeira"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Imagem / Visual */}
           <div className="relative order-2 lg:order-1">
-            <div
-              className="relative rounded-2xl overflow-hidden aspect-[4/5] max-w-md mx-auto lg:mx-0"
-              style={{
-                background: 'linear-gradient(135deg, #161616, #111111)',
-                border: '1px solid rgba(197,160,89,0.15)',
-              }}
-            >
-              {/* Imagem do Patrick */}
-              <div className="absolute inset-0">
-                <Image
-                  src="/images/IMG_2435.PNG"
-                  alt="Patrick Teixeira"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
-                {/* Gradiente sutil por cima para melhor contraste com os elementos do design */}
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(17,17,17,0.8) 0%, transparent 40%)'
-                  }}
-                />
-              </div>
+            <div className="relative rounded-[16px] overflow-hidden aspect-[4/5] max-w-md mx-auto lg:mx-0 bg-[#161616] border border-[#27272A]">
+              <Image
+                src="/images/IMG_2435.PNG"
+                alt="Patrick Teixeira"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
             </div>
 
-            {/* Card flutuante — livro */}
-            <div
-              className="absolute -bottom-4 -right-4 lg:right-auto lg:-left-8 flex gap-3 items-center p-3 rounded-xl"
-              style={{
-                background: '#161616',
-                border: '1px solid rgba(197,160,89,0.2)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.8)',
-              }}
-            >
-              <div className="relative w-12 h-16 rounded overflow-hidden shadow-md">
+            {/* Card flutuante — livro (raio externo 16px - padding 8px = raio interno 8px) */}
+            <div className="flutuante absolute -bottom-4 -right-4 lg:right-auto lg:-left-8 flex gap-3 items-center p-2 rounded-[16px] bg-[#161616] border border-[#27272A]">
+              <div className="relative w-12 h-16 rounded-[8px] overflow-hidden">
                 <Image src="/images/IMG_2634.png" alt="Capa do livro A Escada Invisível" fill className="object-cover" />
               </div>
-              <div>
-                <p className="text-xs font-bold" style={{ color: '#FAFAFA' }}>A Escada Invisível</p>
-                <p className="text-[10px] mt-0.5" style={{ color: '#C5A059' }}>Livro publicado</p>
+              <div className="pr-2">
+                <p className="text-xs font-bold text-[#FAFAFA]">A Escada Invisível</p>
+                <p className="text-xs mt-0.5 text-[#C5A059]">Livro publicado</p>
               </div>
             </div>
           </div>
@@ -269,41 +189,31 @@ function SobreSection({ texts }: { texts: Record<string, string> }) {
           <div className="order-1 lg:order-2">
             <span className="eyebrow mb-4 block">Quem é Patrick</span>
             <h2
-              className="text-3xl md:text-5xl font-bold mb-6"
+              className="text-3xl md:text-5xl font-bold mb-6 text-[#FAFAFA]"
               style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
-              O Método que{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                Integra Negócios e Família
-              </span>
+              O Método que <span className="text-[#C5A059]">Integra Negócios e Família</span>
             </h2>
-            <div className="text-lg leading-relaxed space-y-4 mb-10 whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+            <div className="text-lg leading-relaxed space-y-4 mb-10 whitespace-pre-wrap text-[#B8B2AC]">
               {texts.sobre_text || `Patrick Teixeira não chegou onde está apesar das suas responsabilidades — chegou por causa delas. Casado, pai, empresário e mentor, ele entendeu cedo que o verdadeiro teste de um líder não está na sala de reuniões. Está na mesa de jantar.`}
             </div>
 
-            {/* Credenciais */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               {[
-                { icon: '📘', text: 'Autor de "A Escada Invisível"' },
-                { icon: '🎤', text: 'Palestrante em eventos nacionais' },
-                { icon: '🏆', text: 'Fundador da Mentoria Kairós' },
-              ].map((item) => (
-                <div key={item.text} className="flex items-center gap-3">
-                  <span className="text-lg">{item.icon}</span>
-                  <span className="text-sm font-medium" style={{ color: '#C4BFBA' }}>{item.text}</span>
+                { Icon: IconBookOpen, text: 'Autor de "A Escada Invisível"' },
+                { Icon: IconMic, text: 'Palestrante em eventos nacionais' },
+                { Icon: IconAward, text: 'Fundador da Mentoria Kairós' },
+              ].map(({ Icon, text }) => (
+                <div key={text} className="flex items-center gap-3">
+                  <Icon className="w-6 h-6 text-[#C5A059] flex-shrink-0" />
+                  <span className="text-sm font-medium text-[#FAFAFA]">{text}</span>
                 </div>
               ))}
             </div>
 
             <Link href="/sobre" className="btn-ghost">
-              Conheça a história completa →
+              <span>Conheça a história completa</span>
+              <IconArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
@@ -316,91 +226,89 @@ function SobreSection({ texts }: { texts: Record<string, string> }) {
 // MENTORIA KAIRÓS SECTION
 // -----------------------------------------------
 function MentoriaSection({ texts }: { texts: Record<string, string> }) {
-  const features = [
-    {
-      icon: '⚙️',
-      title: 'Sistema de Gestão',
-      desc: 'Que não depende de você estar presente 100% do tempo',
-    },
-    {
-      icon: '👑',
-      title: 'Autoridade Real',
-      desc: 'Liderança genuína — na empresa e em casa, sem máscara',
-    },
-    { title: 'Gestão do Tempo', desc: 'Sistemas para dominar sua agenda e parar de apagar incêndios.', icon: '⌛' },
-    { title: 'Posicionamento', desc: 'Como se portar como autoridade inquestionável no seu mercado.', icon: '♟️' },
-    { title: 'Dinâmica Familiar', desc: 'Como construir uma família inabalável enquanto o negócio cresce.', icon: '🛡️' },
-    { title: 'Performance Física', desc: 'Sem energia não há liderança. O corpo do líder molda seu império.', icon: '⚡' },
-    { title: 'Vida Espiritual', desc: 'Fé prática como fundação inabalável para a liderança integral.', icon: '🙏' },
+  const principalFeature = {
+    Icon: IconSettings,
+    title: 'Sistema de Gestão',
+    desc: 'Estruture processos, delegação e rituais de liderança para a empresa crescer sem depender da sua presença 100% do tempo.',
+  }
+
+  const secondaryFeatures = [
+    { Icon: IconCrown, title: 'Autoridade Real', desc: 'Liderança genuína — na empresa e em casa, sem máscara.' },
+    { Icon: IconClock, title: 'Gestão do Tempo', desc: 'Sistemas para dominar sua agenda e parar de apagar incêndios.' },
+    { Icon: IconCompass, title: 'Posicionamento', desc: 'Como se portar como autoridade no seu mercado.' },
+    { Icon: IconShield, title: 'Dinâmica Familiar', desc: 'Construa uma família forte enquanto o negócio cresce.' },
+    { Icon: IconActivity, title: 'Performance Física', desc: 'Sem energia não há liderança. O corpo do líder sustenta a rotina.' },
+    { Icon: IconHeartHandshake, title: 'Vida Espiritual', desc: 'Fé prática como fundação para decisões e liderança integral.' },
   ]
+
+  const PrincipalIcon = principalFeature.Icon
 
   return (
     <section
       id="mentoria"
-      className="relative section-padding overflow-hidden"
-      style={{ background: '#111111' }}
+      className="section-padding bg-[#111111]"
       aria-label="Mentoria Kairós"
     >
-      {/* Glow de fundo */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-10 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(197,160,89,0.8) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-        }}
-      />
-
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block justify-center">O programa</span>
           <h2
-            className="text-3xl md:text-5xl font-bold mb-5 max-w-3xl mx-auto"
+            className="text-3xl md:text-5xl font-bold mb-5 max-w-3xl mx-auto text-[#FAFAFA]"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            Mentoria{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059 0%, #D4B577 50%, #A8863D 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Kairós
-            </span>
+            Mentoria <span className="text-[#C5A059]">Kairós</span>
           </h2>
-          <div className="text-lg max-w-xl mx-auto whitespace-pre-wrap" style={{ color: '#8A8580' }}>
-            {texts.mentoria_text || `Um programa de imersão para homens que querem escalar seus negócios com clareza, liderança e família unida.`}
-          </div>
+          <p className="text-lg max-w-xl mx-auto whitespace-pre-wrap text-[#B8B2AC]">
+            {texts.mentoria_text || 'Um programa de imersão para homens que querem escalar seus negócios com clareza, liderança e família unida.'}
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {features.map((f) => (
-            <div key={f.title} className="card p-6 text-center group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {f.icon}
+        {/* Grade assimétrica: recurso principal ocupa 2x mais espaço */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="card p-8 lg:col-span-2 lg:row-span-2 flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-[8px] border border-[#27272A] bg-[#111111] flex items-center justify-center text-[#C5A059] mb-6">
+                <PrincipalIcon className="w-6 h-6" />
               </div>
               <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
+                className="text-2xl font-bold mb-3 text-[#FAFAFA]"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
-                {f.title}
+                {principalFeature.title}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#4A4540' }}>
-                {f.desc}
+              <p className="text-base leading-relaxed text-[#B8B2AC]">
+                {principalFeature.desc}
               </p>
+            </div>
+            <div className="mt-8 pt-6 border-t border-[#27272A]">
+              <Link href="/mentoria" className="btn-ghost">
+                <span>Ver estrutura completa do método</span>
+                <IconArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+
+          {secondaryFeatures.map(({ Icon, title, desc }) => (
+            <div key={title} className="card p-6">
+              <div className="text-[#C5A059] mb-4">
+                <Icon className="w-6 h-6" />
+              </div>
+              <h3
+                className="text-lg font-bold mb-2 text-[#FAFAFA]"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              >
+                {title}
+              </h3>
+              <p className="text-sm text-[#B8B2AC]">{desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Para quem é / não é */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 max-w-4xl mx-auto">
-          <div
-            className="p-8 rounded-xl"
-            style={{ background: '#161616', border: '1px solid rgba(76, 175, 119, 0.2)' }}
-          >
-            <h3 className="font-bold mb-5 flex items-center gap-2" style={{ color: '#4CAF77' }}>
-              <span>✔</span> Para quem é a Mentoria Método Kairós
+        {/* Para quem é vs Para quem não é */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+          <div className="p-8 rounded-[16px] bg-[#161616] border border-[#27272A]">
+            <h3 className="font-bold mb-5 flex items-center gap-2 text-[#C5A059]">
+              <IconCheck className="w-6 h-6 flex-shrink-0" />
+              <span>Para quem é a Mentoria Método Kairós</span>
             </h3>
             <ul className="space-y-3">
               {[
@@ -411,19 +319,17 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
                 'Para homens que estão dispostos a assumir a responsabilidade pela própria transformação e colocar em prática o que aprenderem.',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="text-[#4CAF77] mt-0.5 flex-shrink-0">✔</span>
-                  <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
+                  <IconCheck className="w-5 h-5 text-[#C5A059] mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-[#B8B2AC]">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div
-            className="p-8 rounded-xl"
-            style={{ background: '#161616', border: '1px solid rgba(224, 82, 82, 0.2)' }}
-          >
-            <h3 className="font-bold mb-5 flex items-center gap-2" style={{ color: '#E05252' }}>
-              <span>✘</span> Para quem NÃO é
+          <div className="p-8 rounded-[16px] bg-[#161616] border border-[#27272A]">
+            <h3 className="font-bold mb-5 flex items-center gap-2 text-[#FAFAFA]">
+              <IconX className="w-6 h-6 flex-shrink-0 text-[#B8B2AC]" />
+              <span>Para quem NÃO é</span>
             </h3>
             <ul className="space-y-3">
               {[
@@ -434,29 +340,24 @@ function MentoriaSection({ texts }: { texts: Record<string, string> }) {
                 'Quem não valoriza princípios, família e uma transformação integral.',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="text-[#E05252] mt-0.5 flex-shrink-0">✘</span>
-                  <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
+                  <IconX className="w-5 h-5 text-[#B8B2AC] mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-[#B8B2AC]">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Posicionamento */}
-        <div
-          className="max-w-4xl mx-auto p-8 rounded-2xl text-center"
-          style={{
-            background: 'linear-gradient(135deg, rgba(197,160,89,0.06) 0%, rgba(197,160,89,0.02) 100%)',
-            border: '1px solid rgba(197,160,89,0.25)',
-          }}
-        >
-          <p
-            className="text-lg md:text-xl leading-relaxed italic"
-            style={{ color: '#C4BFBA', fontFamily: "'Playfair Display', Georgia, serif" }}
+        <div className="max-w-4xl mx-auto p-8 rounded-[16px] text-center bg-[#161616] border border-[#27272A]">
+          <blockquote
+            className="text-lg md:text-xl leading-relaxed text-[#FAFAFA]"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
             &ldquo;O Método Kairós não foi criado para formar apenas líderes de sucesso. Foi criado para formar homens cujo sucesso profissional fortalece, e não destrói, o legado da própria família.&rdquo;
+          </blockquote>
+          <p className="mt-4 text-sm font-semibold tracking-widest uppercase text-[#C5A059]">
+            — Patrick Teixeira
           </p>
-          <p className="mt-4 text-sm font-semibold tracking-widest uppercase" style={{ color: '#C5A059' }}>— Patrick Teixeira</p>
         </div>
       </div>
     </section>
@@ -491,74 +392,53 @@ function TestimonialsSection() {
   return (
     <section
       id="depoimentos"
-      className="section-padding"
+      className="section-padding bg-[#0A0A0A]"
       aria-label="Depoimentos de alunos"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block justify-center">Prova social</span>
           <h2
-            className="text-3xl md:text-5xl font-bold"
+            className="text-3xl md:text-5xl font-bold text-[#FAFAFA]"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            Homens que Escolheram{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Outro Caminho
-            </span>
+            Homens que Escolheram <span className="text-[#C5A059]">Outro Caminho</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
             <div key={i} className="card p-8 flex flex-col">
-              {/* Estrelas */}
-              <div className="flex gap-1 mb-6">
-                {Array(t.stars).fill(0).map((_, j) => (
-                  <svg key={j} width="16" height="16" viewBox="0 0 24 24" fill="#C5A059">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
+              <div className="flex gap-1 mb-6 text-[#C5A059]" aria-label={`${t.stars} de 5 estrelas`}>
+                {Array(t.stars)
+                  .fill(0)
+                  .map((_, j) => (
+                    <IconStar key={j} className="w-5 h-5" />
+                  ))}
               </div>
 
-              {/* Quote */}
               <blockquote className="flex-1 mb-6">
-                <p className="text-base leading-relaxed italic" style={{ color: '#8A8580' }}>
+                <p className="text-base leading-relaxed text-[#B8B2AC]">
                   &ldquo;{t.text}&rdquo;
                 </p>
               </blockquote>
 
-              {/* Autor */}
-              <div className="flex items-center gap-3 border-t border-[#1E1E1E] pt-4">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{
-                    background: 'rgba(197,160,89,0.1)',
-                    border: '1px solid rgba(197,160,89,0.2)',
-                  }}
-                >
-                  <span className="text-xs font-bold" style={{ color: '#C5A059' }}>
-                    {t.name[0]}
-                  </span>
+              <div className="flex items-center gap-3 border-t border-[#27272A] pt-4">
+                <div className="w-10 h-10 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#111111] border border-[#27272A]">
+                  <span className="text-xs font-bold text-[#C5A059]">{t.name[0]}</span>
                 </div>
                 <div>
-                  <p className="text-sm font-bold" style={{ color: '#FAFAFA' }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: '#4A4540' }}>{t.role}</p>
+                  <p className="text-sm font-bold text-[#FAFAFA]">{t.name}</p>
+                  <p className="text-xs text-[#B8B2AC]">{t.role}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12">
           <Link href="/depoimentos" className="btn-ghost">
-            Ver todos os depoimentos →
+            <span>Ver todos os depoimentos</span>
+            <IconArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>
@@ -577,6 +457,7 @@ function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?:
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (loading) return
     setLoading(true)
     setError('')
     try {
@@ -606,43 +487,39 @@ function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?:
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)' }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A0A0A]/85"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl p-8 relative"
-        style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.25)', boxShadow: '0 20px 60px rgba(0,0,0,0.8)' }}
-        onClick={e => e.stopPropagation()}
+        className="flutuante w-full max-w-md rounded-[16px] p-8 relative bg-[#161616] border border-[#27272A]"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-livro-titulo"
       >
-        {/* Fechar */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full transition-colors"
-          style={{ background: '#1E1E1E', color: '#8A8580' }}
-          aria-label="Fechar formulário"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-[8px] border border-[#71717A] text-[#B8B2AC] hover:text-[#FAFAFA] transition-colors duration-200"
+          aria-label="Fechar modal"
         >
-          ✕
+          <IconX className="w-5 h-5" />
         </button>
 
         {!sent ? (
           <>
-            <div className="mb-6">
-              <span className="eyebrow mb-2 block">Solicitar o Livro</span>
-              <h3
-                className="text-2xl font-bold"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
-              >
-                A Escada Invisível
-              </h3>
-              <p className="text-sm mt-2" style={{ color: '#8A8580' }}>
-                Preencha os dados abaixo e nossa equipe entrará em contato.
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4" id="form-livro">
+            <h3
+              id="modal-livro-titulo"
+              className="text-2xl font-bold mb-2 text-[#FAFAFA]"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              A Escada Invisível
+            </h3>
+            <p className="text-sm mb-6 text-[#B8B2AC]">
+              Preencha seus dados para solicitar seu exemplar e receber o link de compra.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-4" aria-busy={loading}>
               <div>
-                <label className="form-label" htmlFor="livro-nome">Nome completo</label>
+                <label className="form-label" htmlFor="livro-nome">Nome completo *</label>
                 <input
                   id="livro-nome"
                   type="text"
@@ -650,11 +527,11 @@ function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?:
                   className="form-field"
                   placeholder="Seu nome"
                   value={form.nome}
-                  onChange={e => setForm({ ...form, nome: e.target.value })}
+                  onChange={(e) => setForm({ ...form, nome: e.target.value })}
                 />
               </div>
               <div>
-                <label className="form-label" htmlFor="livro-whatsapp">WhatsApp</label>
+                <label className="form-label" htmlFor="livro-whatsapp">WhatsApp *</label>
                 <input
                   id="livro-whatsapp"
                   type="tel"
@@ -662,11 +539,11 @@ function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?:
                   className="form-field"
                   placeholder="(00) 00000-0000"
                   value={form.whatsapp}
-                  onChange={e => setForm({ ...form, whatsapp: e.target.value })}
+                  onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
                 />
               </div>
               <div>
-                <label className="form-label" htmlFor="livro-email">E-mail</label>
+                <label className="form-label" htmlFor="livro-email">E-mail *</label>
                 <input
                   id="livro-email"
                   type="email"
@@ -674,52 +551,51 @@ function LivroFormModal({ onClose, bookLink }: { onClose: () => void; bookLink?:
                   className="form-field"
                   placeholder="seu@email.com"
                   value={form.email}
-                  onChange={e => setForm({ ...form, email: e.target.value })}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </div>
-
-              {error && <p className="text-sm" style={{ color: '#E05252' }}>{error}</p>}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-primary w-full mt-2"
-                id="btn-solicitar-livro"
-              >
-                <span>{loading ? 'Enviando...' : 'Solicitar o Livro →'}</span>
+              {error && (
+                <p className="text-xs text-[#FAFAFA]" role="status">
+                  {error}
+                </p>
+              )}
+              <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 text-sm">
+                <span>{loading ? 'Enviando...' : 'Quero meu exemplar'}</span>
+                {!loading && <IconArrowRight className="w-5 h-5" />}
               </button>
             </form>
           </>
         ) : (
-          <div className="text-center py-4">
-            <div className="text-5xl mb-4">📖</div>
+          <div className="text-center py-6" role="status">
+            <div className="w-12 h-12 rounded-[8px] border border-[#C5A059] flex items-center justify-center mx-auto mb-4 text-[#C5A059]">
+              <IconCheck className="w-6 h-6" />
+            </div>
             <h3
-              className="text-xl font-bold mb-3"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
+              className="text-xl font-bold mb-2 text-[#FAFAFA]"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               Solicitação Recebida!
             </h3>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#8A8580' }}>
-              Nossa equipe entrará em contato pelo WhatsApp informado para enviar o link do livro.
+            <p className="text-sm mb-6 text-[#B8B2AC]">
+              Seus dados foram salvos. Em breve nossa equipe entrará em contato.
             </p>
             {bookLink && (
-              <div
-                className="p-4 rounded-xl mb-4"
-                style={{ background: 'rgba(197,160,89,0.08)', border: '1px solid rgba(197,160,89,0.2)' }}
-              >
-                <p className="text-xs font-semibold tracking-wider uppercase mb-2" style={{ color: '#C5A059' }}>Link de compra disponível</p>
+              <div className="mb-4">
                 <a
                   href={bookLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary text-sm py-2 px-6 inline-block"
+                  className="btn-primary text-sm py-2 px-6 inline-flex"
                   id="link-compra-livro"
                 >
-                  <span>Comprar o Livro →</span>
+                  <span>Comprar o Livro</span>
+                  <IconArrowRight className="w-5 h-5" />
                 </a>
               </div>
             )}
-            <button onClick={onClose} className="btn-ghost text-sm">Fechar</button>
+            <button onClick={onClose} className="btn-ghost text-sm">
+              Fechar
+            </button>
           </div>
         )}
       </div>
@@ -738,15 +614,13 @@ function LivroSection({ texts, bookLink }: { texts: Record<string, string>; book
       {modalOpen && <LivroFormModal onClose={() => setModalOpen(false)} bookLink={bookLink} />}
       <section
         id="livro"
-        className="section-padding"
-        style={{ background: '#111111' }}
+        className="section-padding bg-[#111111]"
         aria-label="Livro A Escada Invisível"
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
-            {/* Capa do livro visual */}
             <div className="flex justify-center">
-              <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(197,160,89,0.1)' }}>
+              <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-[16px] overflow-hidden border border-[#27272A]">
                 <Image
                   src="/images/IMG_2635.png"
                   alt="Patrick Teixeira com o livro A Escada Invisível"
@@ -757,37 +631,25 @@ function LivroSection({ texts, bookLink }: { texts: Record<string, string>; book
               </div>
             </div>
 
-            {/* Texto */}
             <div>
-              <span className="eyebrow mb-4 block">O livro</span>
               <h2
-                className="text-3xl md:text-4xl font-bold mb-5"
+                className="text-3xl md:text-4xl font-bold mb-5 text-[#FAFAFA]"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
-                O Livro que Torna o{' '}
-                <span
-                  style={{
-                    background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
-                >
-                  Invisível Visível
-                </span>
+                O Livro que Torna o <span className="text-[#C5A059]">Invisível Visível</span>
               </h2>
-              <div className="text-base mb-6 leading-relaxed whitespace-pre-wrap" style={{ color: '#8A8580' }}>
+              <div className="text-base mb-6 leading-relaxed whitespace-pre-wrap text-[#B8B2AC]">
                 {texts.livro_text || `"A Escada Invisível" revela os princípios que Patrick aplicou para construir autoridade, resultado e presença — sem sacrificar o que mais importa. Um guia prático para líderes que querem deixar um legado real.`}
               </div>
               <ul className="space-y-3 mb-8">
                 {[
                   'Princípios práticos de liderança aplicáveis imediatamente',
-                  'Método do que acontece nos bastidores corporativo e que te faz alavancar a carreira.',
+                  'Método do que acontece nos bastidores corporativos e que faz você alavancar a carreira',
                   'Casos reais de transformação de líderes brasileiros',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1 flex-shrink-0" style={{ color: '#C5A059' }}>◆</span>
-                    <span className="text-sm" style={{ color: '#8A8580' }}>{item}</span>
+                    <IconCheck className="w-5 h-5 text-[#C5A059] mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-[#B8B2AC]">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -796,7 +658,8 @@ function LivroSection({ texts, bookLink }: { texts: Record<string, string>; book
                 onClick={() => setModalOpen(true)}
                 className="btn-outline"
               >
-                Quero meu exemplar →
+                <span>Quero meu exemplar</span>
+                <IconArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -814,11 +677,12 @@ export default function HomePage() {
   const texts: Record<string, string> = {}
   const settings = { ctaLabel: 'Diagnóstico Gratuito', ctaLink: 'https://form.respondi.app/DQ2AeT6P' }
 
-  // Busca o link do livro configurado no admin
   useEffect(() => {
     fetch('/api/admin/settings')
-      .then(r => r.json())
-      .then(d => { if (d?.bookLink) setBookLink(d.bookLink) })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d?.bookLink) setBookLink(d.bookLink)
+      })
       .catch(() => {})
   }, [])
 

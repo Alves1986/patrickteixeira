@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -14,99 +14,93 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [loadingNav, setLoadingNav] = useState(true)
   const [dynamicLinks, setDynamicLinks] = useState(navLinks)
   const [cta, setCta] = useState({ label: 'Diagnóstico Gratuito', link: 'https://form.respondi.app/DQ2AeT6P' })
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handleScroll, { passive: true })
-    
-    // Fetch dynamic menus
-    fetch('/api/admin/menus')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.length > 0) {
-          const headerLinks = data.filter((m: any) => m.location === 'header').sort((a: any, b: any) => a.order_index - b.order_index)
-          setDynamicLinks(headerLinks)
-        }
-      })
-      .catch(err => console.error('Error fetching menus:', err))
 
-    // Fetch CTA Settings
-    fetch('/api/admin/settings')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.ctaLabel) {
-          setCta({ label: data.ctaLabel, link: data.ctaLink })
-        }
-      })
-      .catch(err => console.error('Error fetching settings:', err))
+    Promise.allSettled([
+      fetch('/api/admin/menus')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.length > 0) {
+            const headerLinks = data
+              .filter((m: any) => m.location === 'header')
+              .sort((a: any, b: any) => a.order_index - b.order_index)
+            if (headerLinks.length > 0) setDynamicLinks(headerLinks)
+          }
+        }),
+      fetch('/api/admin/settings')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.ctaLabel) {
+            setCta({ label: data.ctaLabel, link: data.ctaLink })
+          }
+        }),
+    ]).finally(() => setLoadingNav(false))
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
         scrolled
-          ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#1E1E1E] py-3'
+          ? 'bg-[#0A0A0A] border-b border-[#27272A] py-3'
           : 'bg-transparent py-5'
       }`}
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Logo */}
         <Link
           href="/"
-          className="flex items-center group"
+          className="flex items-center"
           aria-label="Patrick Teixeira - Home"
         >
-          {/* Fundo escuro atrás da logo branca */}
-          <div
-            className="relative h-28 w-auto"
-            style={{ minWidth: 320 }}
-          >
+          <div className="relative h-20 w-auto">
             <Image
               src="/logo.png"
               alt="Kairós Leadership — Patrick Teixeira"
-              width={320}
-              height={112}
+              width={240}
+              height={84}
               priority
-              className="h-28 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(197,160,89,0.3))' }}
+              className="h-20 w-auto object-contain transition-opacity duration-200 hover:opacity-85"
             />
           </div>
         </Link>
 
-        {/* Nav — Desktop */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Navegação principal">
+        <nav
+          className="hidden lg:flex items-center gap-8"
+          aria-label="Navegação principal"
+          aria-busy={loadingNav}
+        >
           {dynamicLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold tracking-wide uppercase text-[#8A8580] hover:text-[#C5A059] transition-colors duration-300 relative group"
+              className="text-sm font-semibold tracking-wide uppercase text-[#B8B2AC] hover:text-[#C5A059] transition-colors duration-200"
             >
               {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#C5A059] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
-        {/* CTA — Desktop */}
         <div className="hidden lg:flex items-center gap-4">
           <a href={cta.link} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2.5 px-6">
             {cta.label}
           </a>
         </div>
 
-        {/* Menu Mobile Toggle */}
         <button
-          className="lg:hidden p-2 rounded-md text-[#8A8580] hover:text-[#C5A059] transition-colors"
+          className="lg:hidden p-2 rounded-[4px] text-[#B8B2AC] hover:text-[#C5A059] transition-colors duration-200"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
           id="mobile-menu-toggle"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             {menuOpen ? (
               <>
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -123,33 +117,30 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`lg:hidden overflow-hidden transition-all duration-400 ${
-          menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-        aria-hidden={!menuOpen}
-      >
-        <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col gap-1 border-t border-[#1E1E1E] mt-3">
-          {dynamicLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="py-3 text-sm font-semibold tracking-wide uppercase text-[#8A8580] hover:text-[#C5A059] transition-colors duration-300 border-b border-[#1E1E1E]"
-              onClick={() => setMenuOpen(false)}
+      {menuOpen && (
+        <div className="lg:hidden bg-[#111111] border-b border-[#27272A] px-4 py-6 flutuante">
+          <nav className="flex flex-col gap-4" aria-label="Navegação mobile">
+            {dynamicLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-semibold tracking-wide uppercase text-[#B8B2AC] hover:text-[#C5A059] py-2"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href={cta.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-sm py-3 px-6 mt-2 text-center"
             >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href={cta.link} target="_blank" rel="noopener noreferrer"
-            className="block w-full text-center py-4 bg-gradient-to-r from-[#C5A059] to-[#D4B577] text-[#0A0A0A] font-bold uppercase tracking-wider text-sm mt-4"
-            onClick={() => setMenuOpen(false)}
-          >
-            {cta.label}
-          </a>
-        </nav>
-      </div>
+              {cta.label}
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }
