@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { SiteLayout } from '@/components/layout/SiteLayout'
+import { IconArrowRight, IconClock, IconUsers } from '@/components/ui/Icons'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -39,36 +39,13 @@ export default function PalestrasPage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section
-        className="relative pt-32 pb-20 overflow-hidden"
-        aria-label="Palestras Patrick Teixeira - Hero"
-      >
-        <div
-          className="absolute top-0 left-0 w-[400px] h-[400px] opacity-5 pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle, rgba(197,160,89,1) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-        />
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="eyebrow mb-6 block justify-center">Eventos & Convenções</span>
-          <h1
-            className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Patrick Teixeira{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              nos Palcos
-            </span>
+      <section className="pt-32 pb-20" aria-label="Palestras Patrick Teixeira - Hero">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="eyebrow mb-6 block justify-center">Eventos &amp; Convenções</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight">
+            Patrick Teixeira <span style={{ color: '#C5A059' }}>nos Palcos</span>
           </h1>
-          <p className="text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: '#8A8580' }}>
+          <p className="text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: '#B8B2AC' }}>
             Uma abordagem que une dados, método e emoção real para transformar
             plateias de líderes e empreendedores.
           </p>
@@ -84,12 +61,7 @@ export default function PalestrasPage() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="eyebrow mb-4 block justify-center">Repertório</span>
-            <h2
-              className="text-3xl md:text-4xl font-bold"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Temas Disponíveis
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Temas Disponíveis</h2>
           </div>
 
           <div className="space-y-8 max-w-4xl mx-auto">
@@ -98,44 +70,39 @@ export default function PalestrasPage() {
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Número */}
                   <div
-                    className="text-5xl font-bold flex-shrink-0 self-start"
+                    className="text-5xl font-bold shrink-0 self-start tabular-nums"
                     style={{
-                      fontFamily: "'Playfair Display', Georgia, serif",
-                      background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                      opacity: 0.3,
+                      fontFamily: 'var(--font-display)',
+                      color: '#C5A059',
                     }}
                   >
                     {tema.num}
                   </div>
                   {/* Conteúdo */}
                   <div className="flex-1">
-                    <h3
-                      className="text-2xl font-bold mb-1"
-                      style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
-                    >
+                    <h3 className="text-2xl font-bold mb-1" style={{ color: '#FAFAFA' }}>
                       {tema.title}
                     </h3>
                     <p className="text-sm font-semibold mb-4" style={{ color: '#C5A059' }}>
                       {tema.subtitle}
                     </p>
-                    <p className="text-base leading-relaxed mb-6" style={{ color: '#8A8580' }}>
+                    <p className="text-base leading-relaxed mb-6" style={{ color: '#B8B2AC' }}>
                       {tema.desc}
                     </p>
                     <div className="flex flex-wrap gap-4">
                       <span
-                        className="text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5"
-                        style={{ background: 'rgba(197,160,89,0.08)', border: '1px solid rgba(197,160,89,0.2)', color: '#C5A059' }}
+                        className="text-xs font-semibold px-3 py-1.5 rounded flex items-center gap-2 tabular-nums"
+                        style={{ background: '#111111', border: '1px solid #27272A', color: '#C5A059' }}
                       >
-                        🕐 {tema.duracao}
+                        <IconClock className="w-4 h-4" />
+                        <span>{tema.duracao}</span>
                       </span>
                       <span
-                        className="text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5"
-                        style={{ background: '#161616', border: '1px solid #1E1E1E', color: '#8A8580' }}
+                        className="text-xs font-semibold px-3 py-1.5 rounded flex items-center gap-2"
+                        style={{ background: '#111111', border: '1px solid #27272A', color: '#B8B2AC' }}
                       >
-                        👥 {tema.publico}
+                        <IconUsers className="w-4 h-4" />
+                        <span>{tema.publico}</span>
                       </span>
                     </div>
                   </div>
@@ -148,42 +115,33 @@ export default function PalestrasPage() {
 
       {/* Solicitar palestra */}
       <section className="section-padding" aria-label="Solicitar Patrick para evento">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <span className="eyebrow mb-6 block justify-center">Leve para seu evento</span>
-            <h2
-              className="text-3xl md:text-4xl font-bold mb-6"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="eyebrow mb-6 block justify-center">Leve para seu evento</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Solicite Patrick para <span style={{ color: '#C5A059' }}>seu Evento</span>
+          </h2>
+          <p className="text-lg mb-10" style={{ color: '#B8B2AC' }}>
+            Para solicitar Patrick como palestrante ou verificar disponibilidade de agenda,
+            entre em contato diretamente via WhatsApp. Nossa equipe retornará com proposta personalizada.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://wa.me/554298250506?text=Gostaria%20de%20solicitar%20uma%20proposta%20de%20palestra%20com%20o%20Patrick"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-base px-8 py-4"
             >
-              Solicite Patrick para{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                seu Evento
-              </span>
-            </h2>
-            <p className="text-lg mb-10" style={{ color: '#8A8580' }}>
-              Para solicitar Patrick como palestrante ou verificar disponibilidade de agenda,
-              entre em contato diretamente via WhatsApp. Nossa equipe retornará com proposta personalizada.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://wa.me/554298250506?text=Gostaria%20de%20solicitar%20uma%20proposta%20de%20palestra%20com%20o%20Patrick" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-8 py-4">
-                <span>Falar no WhatsApp →</span>
-              </a>
-              <a
-                href="https://instagram.com/patrickteixeiras"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline text-base px-8 py-4"
-              >
-                Ver no Instagram
-              </a>
-            </div>
+              <span>Falar no WhatsApp</span>
+              <IconArrowRight className="w-5 h-5" />
+            </a>
+            <a
+              href="https://instagram.com/patrickteixeiras"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline text-base px-8 py-4"
+            >
+              Ver no Instagram
+            </a>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { SiteLayout } from '@/components/layout/SiteLayout'
+import { IconArrowRight } from '@/components/ui/Icons'
 import type { Metadata } from 'next'
 import { getPosts } from '@/lib/content'
 
@@ -15,29 +16,13 @@ export default async function BlogPage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section
-        className="relative pt-32 pb-20 overflow-hidden"
-        aria-label="Blog - Hero"
-      >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <section className="pt-32 pb-20" aria-label="Blog - Hero">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="eyebrow mb-6 block justify-center">Conteúdo gratuito</span>
-          <h1
-            className="text-4xl md:text-6xl font-bold mb-6"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Liderança, Negócios{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              & Legado
-            </span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Liderança, Negócios <span style={{ color: '#C5A059' }}>&amp; Legado</span>
           </h1>
-          <p className="text-xl max-w-xl mx-auto" style={{ color: '#8A8580' }}>
+          <p className="text-xl max-w-xl mx-auto" style={{ color: '#B8B2AC' }}>
             Artigos práticos para homens que querem crescer no negócio sem sacrificar a família.
           </p>
         </div>
@@ -51,58 +36,44 @@ export default async function BlogPage() {
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {posts.length === 0 ? (
-             <div className="text-center py-20">
-               <p className="text-[#8A8580]">Nenhum artigo publicado ainda.</p>
-             </div>
+            <div className="text-center py-20">
+              <p style={{ color: '#B8B2AC' }}>Nenhum artigo publicado ainda.</p>
+            </div>
           ) : (
             <>
               {/* Post em destaque */}
               <div className="mb-12">
-                <div
-                  className="card p-10 relative overflow-hidden"
-                  style={{ background: 'linear-gradient(135deg, #161616, #111111)' }}
-                >
-                  <div
-                    className="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(circle, rgba(197,160,89,1), transparent)',
-                      filter: 'blur(40px)',
-                    }}
-                  />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span
-                        className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-                        style={{
-                          background: `rgba(197,160,89,0.15)`,
-                          color: '#C5A059',
-                          border: `1px solid rgba(197,160,89,0.4)`,
-                        }}
-                      >
-                        Artigo
-                      </span>
-                      <span className="text-xs" style={{ color: '#4A4540' }}>
-                        {posts[0].date} · {posts[0].readTime}
-                      </span>
-                    </div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold mb-4 max-w-2xl hover:text-gold transition-colors"
-                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                <div className="card p-10" style={{ background: '#161616' }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span
+                      className="text-xs font-bold px-3 py-1 rounded uppercase tracking-wider"
+                      style={{
+                        background: '#111111',
+                        color: '#C5A059',
+                        border: '1px solid #C5A059',
+                      }}
                     >
-                      <Link href={`/blog/${posts[0].slug}`} style={{ color: '#FAFAFA' }}>
-                        {posts[0].title}
-                      </Link>
-                    </h2>
-                    <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#8A8580' }}>
-                      {posts[0].excerpt}
-                    </p>
-                    <Link
-                      href={`/blog/${posts[0].slug}`}
-                      className="btn-primary text-sm px-6 py-3 inline-flex"
-                    >
-                      <span>Ler artigo completo →</span>
-                    </Link>
+                      Artigo
+                    </span>
+                    <span className="text-xs tabular-nums" style={{ color: '#B8B2AC' }}>
+                      {posts[0].date} · {posts[0].readTime}
+                    </span>
                   </div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4 max-w-2xl">
+                    <Link href={`/blog/${posts[0].slug}`} className="hover:text-[#C5A059]" style={{ color: '#FAFAFA' }}>
+                      {posts[0].title}
+                    </Link>
+                  </h2>
+                  <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#B8B2AC' }}>
+                    {posts[0].excerpt}
+                  </p>
+                  <Link
+                    href={`/blog/${posts[0].slug}`}
+                    className="btn-primary text-sm px-6 py-3 inline-flex"
+                  >
+                    <span>Ler artigo completo</span>
+                    <IconArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
 
@@ -116,39 +87,38 @@ export default async function BlogPage() {
                     >
                       <div className="flex items-center gap-3 mb-4">
                         <span
-                          className="text-xs font-bold px-2 py-1 rounded-sm uppercase tracking-widest"
+                          className="text-xs font-bold px-2 py-1 rounded uppercase tracking-widest"
                           style={{
                             color: '#C5A059',
-                            background: 'rgba(197, 160, 89, 0.1)',
+                            background: '#111111',
+                            border: '1px solid #27272A',
                           }}
                         >
                           Artigo
                         </span>
-                        <span className="text-xs" style={{ color: '#4A4540' }}>
+                        <span className="text-xs tabular-nums" style={{ color: '#B8B2AC' }}>
                           {post.readTime}
                         </span>
                       </div>
-                      <h3
-                        className="text-xl font-bold mb-3 group-hover:text-gold transition-colors"
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#FAFAFA' }}
-                      >
-                        <Link href={`/blog/${post.slug}`}>
+                      <h3 className="text-xl font-bold mb-3" style={{ color: '#FAFAFA' }}>
+                        <Link href={`/blog/${post.slug}`} className="hover:text-[#C5A059]">
                           {post.title}
                         </Link>
                       </h3>
-                      <p className="text-sm leading-relaxed mb-6 flex-1 line-clamp-3" style={{ color: '#8A8580' }}>
+                      <p className="text-sm leading-relaxed mb-6 flex-1 line-clamp-3" style={{ color: '#B8B2AC' }}>
                         {post.excerpt}
                       </p>
-                      <div className="flex items-center justify-between pt-4 border-t border-[#1E1E1E]">
-                        <span className="text-xs font-semibold" style={{ color: '#4A4540' }}>
+                      <div className="flex items-center justify-between pt-4 border-t border-[#27272A]">
+                        <span className="text-xs font-semibold tabular-nums" style={{ color: '#B8B2AC' }}>
                           {post.date}
                         </span>
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="text-xs font-bold uppercase tracking-widest group-hover:text-gold transition-colors"
+                          className="text-xs font-bold uppercase tracking-widest inline-flex items-center gap-1"
                           style={{ color: '#C5A059' }}
                         >
-                          Ler mais →
+                          <span>Ler mais</span>
+                          <IconArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
                     </article>
@@ -160,25 +130,23 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter / Instagram CTA */}
+      {/* Instagram CTA */}
       <section className="section-padding" aria-label="Seguir conteúdo">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-lg mx-auto">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
+        <div className="w-full max-w-lg mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Mais conteúdo no Instagram
           </h2>
-          <p className="mb-8" style={{ color: '#8A8580' }}>
+          <p className="mb-8" style={{ color: '#B8B2AC' }}>
             Siga o Patrick para acompanhar conteúdo diário sobre liderança, negócios e família.
           </p>
           <a
             href="https://instagram.com/patrickteixeiras"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline text-base px-8 py-4"
+            className="btn-outline text-base px-8 py-4 inline-flex items-center gap-2"
           >
-            @patrickteixeiras →
+            <span>@patrickteixeiras</span>
+            <IconArrowRight className="w-4 h-4" />
           </a>
         </div>
       </section>

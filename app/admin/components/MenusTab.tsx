@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { IconPlus } from '@/components/ui/Icons'
 
 type MenuLink = {
   id: string
@@ -16,8 +17,7 @@ export function MenusTab() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingMenu, setEditingMenu] = useState<MenuLink | null>(null)
-  
-  // Form state
+
   const [label, setLabel] = useState('')
   const [href, setHref] = useState('')
   const [location, setLocation] = useState<'header' | 'footer'>('header')
@@ -46,16 +46,14 @@ export function MenusTab() {
     setLoading(true)
 
     let updatedMenus = [...menus]
-    
+
     if (editingMenu) {
-      // Edit
-      updatedMenus = updatedMenus.map(m => 
-        m.id === editingMenu.id 
-          ? { ...m, label, href, location, order_index: order } 
+      updatedMenus = updatedMenus.map(m =>
+        m.id === editingMenu.id
+          ? { ...m, label, href, location, order_index: order }
           : m
       )
     } else {
-      // Create
       updatedMenus.push({
         id: Date.now().toString(),
         label,
@@ -82,10 +80,10 @@ export function MenusTab() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Tem certeza que deseja remover este link?')) return
-    
+
     setLoading(true)
     const updatedMenus = menus.filter(m => m.id !== id)
-    
+
     try {
       await fetch('/api/admin/menus', {
         method: 'POST',
@@ -129,38 +127,42 @@ export function MenusTab() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', serif" }}>
+          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA' }}>
             Gerenciamento de Menus
           </h2>
-          <p className="text-sm mt-1" style={{ color: '#8A8580' }}>
+          <p className="text-sm mt-1" style={{ color: '#B8B2AC' }}>
             Adicione, edite ou remova links do cabeçalho e rodapé do site.
           </p>
         </div>
         <button onClick={() => openModal()} className="btn-primary text-sm px-4 py-2">
-          <span>+ Adicionar Link</span>
+          <IconPlus className="w-4 h-4" />
+          <span>Adicionar Link</span>
         </button>
       </div>
 
       {loading ? (
-        <div className="p-12 text-center animate-pulse">Processando...</div>
+        <div aria-busy="true" aria-label="Carregando menus" className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="esqueleto h-48 w-full" />
+          <div className="esqueleto h-48 w-full" />
+        </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Header */}
-          <div className="p-6 rounded-xl" style={{ background: '#161616', border: '1px solid #1E1E1E' }}>
+          <div className="p-6 rounded-2xl" style={{ background: '#161616', border: '1px solid #27272A' }}>
             <h3 className="font-bold mb-4 text-lg" style={{ color: '#C5A059' }}>Menu Principal (Header)</h3>
             {headerMenus.length === 0 ? (
-              <p className="text-sm" style={{ color: '#8A8580' }}>Nenhum link configurado.</p>
+              <p className="text-sm" style={{ color: '#B8B2AC' }}>Nenhum link configurado.</p>
             ) : (
               <div className="space-y-3">
                 {headerMenus.map((menu) => (
-                  <div key={menu.id} className="flex items-center justify-between p-3 rounded bg-[#111111] border border-[#1E1E1E]">
+                  <div key={menu.id} className="flex items-center justify-between p-3 rounded-lg bg-[#111111] border border-[#27272A]">
                     <div>
                       <div className="font-semibold text-sm" style={{ color: '#FAFAFA' }}>{menu.label}</div>
-                      <div className="text-xs mt-1" style={{ color: '#4A7CC7' }}>{menu.href}</div>
+                      <div className="text-xs mt-1" style={{ color: '#B8B2AC' }}>{menu.href}</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button onClick={() => openModal(menu)} className="text-xs px-2 py-1 hover:text-white" style={{ color: '#8A8580' }}>Editar</button>
-                      <button onClick={() => handleDelete(menu.id)} className="text-xs px-2 py-1 hover:text-white" style={{ color: '#E05252' }}>Remover</button>
+                      <button onClick={() => openModal(menu)} className="text-xs px-2 py-1 hover:text-[#FAFAFA]" style={{ color: '#B8B2AC' }}>Editar</button>
+                      <button onClick={() => handleDelete(menu.id)} className="text-xs px-2 py-1 hover:text-[#FAFAFA]" style={{ color: '#E05252' }}>Remover</button>
                     </div>
                   </div>
                 ))}
@@ -169,21 +171,21 @@ export function MenusTab() {
           </div>
 
           {/* Footer */}
-          <div className="p-6 rounded-xl" style={{ background: '#161616', border: '1px solid #1E1E1E' }}>
+          <div className="p-6 rounded-2xl" style={{ background: '#161616', border: '1px solid #27272A' }}>
             <h3 className="font-bold mb-4 text-lg" style={{ color: '#C5A059' }}>Rodapé (Footer)</h3>
             {footerMenus.length === 0 ? (
-              <p className="text-sm" style={{ color: '#8A8580' }}>Nenhum link configurado.</p>
+              <p className="text-sm" style={{ color: '#B8B2AC' }}>Nenhum link configurado.</p>
             ) : (
               <div className="space-y-3">
                 {footerMenus.map((menu) => (
-                  <div key={menu.id} className="flex items-center justify-between p-3 rounded bg-[#111111] border border-[#1E1E1E]">
+                  <div key={menu.id} className="flex items-center justify-between p-3 rounded-lg bg-[#111111] border border-[#27272A]">
                     <div>
                       <div className="font-semibold text-sm" style={{ color: '#FAFAFA' }}>{menu.label}</div>
-                      <div className="text-xs mt-1" style={{ color: '#4A7CC7' }}>{menu.href}</div>
+                      <div className="text-xs mt-1" style={{ color: '#B8B2AC' }}>{menu.href}</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button onClick={() => openModal(menu)} className="text-xs px-2 py-1 hover:text-white" style={{ color: '#8A8580' }}>Editar</button>
-                      <button onClick={() => handleDelete(menu.id)} className="text-xs px-2 py-1 hover:text-white" style={{ color: '#E05252' }}>Remover</button>
+                      <button onClick={() => openModal(menu)} className="text-xs px-2 py-1 hover:text-[#FAFAFA]" style={{ color: '#B8B2AC' }}>Editar</button>
+                      <button onClick={() => handleDelete(menu.id)} className="text-xs px-2 py-1 hover:text-[#FAFAFA]" style={{ color: '#E05252' }}>Remover</button>
                     </div>
                   </div>
                 ))}
@@ -195,18 +197,26 @@ export function MenusTab() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }} onClick={closeModal}>
-          <div className="w-full max-w-md rounded-2xl p-8" style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.2)' }} onClick={e => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif", color: '#FAFAFA' }}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.85)' }}
+          onClick={closeModal}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl p-8 flutuante"
+            style={{ background: '#161616', border: '1px solid #27272A' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-bold mb-6" style={{ color: '#FAFAFA' }}>
               {editingMenu ? 'Editar Link' : 'Novo Link'}
             </h3>
-            
+
             <form onSubmit={handleSave} className="space-y-4">
               <div>
                 <label className="form-label">Nome do Link</label>
                 <input required type="text" value={label} onChange={e => setLabel(e.target.value)} className="form-field" placeholder="Ex: Sobre" />
               </div>
-              
+
               <div>
                 <label className="form-label">URL de destino (Link)</label>
                 <input required type="text" value={href} onChange={e => setHref(e.target.value)} className="form-field" placeholder="Ex: /sobre ou https://..." />
@@ -222,7 +232,7 @@ export function MenusTab() {
                 </div>
                 <div className="w-24">
                   <label className="form-label">Ordem</label>
-                  <input required type="number" value={order} onChange={e => setOrder(Number(e.target.value))} className="form-field" />
+                  <input required type="number" value={order} onChange={e => setOrder(Number(e.target.value))} className="form-field tabular-nums" />
                 </div>
               </div>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { IconCheck } from '@/components/ui/Icons'
 
 type Settings = {
   ctaLabel: string
@@ -56,72 +57,87 @@ export function SettingsTab() {
     <div className="space-y-8 max-w-3xl">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', serif" }}>
+          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA' }}>
             Configurações Globais
           </h2>
-          <p className="text-sm mt-1" style={{ color: '#8A8580' }}>
+          <p className="text-sm mt-1" style={{ color: '#B8B2AC' }}>
             Gerencie o botão de chamada para ação principal de todo o site.
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="p-12 text-center animate-pulse">Carregando configurações...</div>
+        <div aria-busy="true" aria-label="Carregando configurações" className="space-y-4">
+          <div className="esqueleto h-64 w-full" />
+        </div>
       ) : (
-        <form onSubmit={handleSave} className="p-8 rounded-xl space-y-6" style={{ background: '#161616', border: '1px solid #1E1E1E' }}>
-          
+        <form
+          onSubmit={handleSave}
+          aria-busy={saving}
+          className="p-8 rounded-2xl space-y-6"
+          style={{ background: '#161616', border: '1px solid #27272A' }}
+        >
           <div>
             <h3 className="font-bold text-lg mb-4" style={{ color: '#C5A059' }}>Botão Principal (Formulário / WhatsApp)</h3>
-            <p className="text-sm mb-6" style={{ color: '#8A8580' }}>
-              Ao alterar estas informações, todos os botões "Diagnóstico Gratuito" ou "Falar no WhatsApp" do Cabeçalho, Rodapé e Página Inicial serão atualizados instantaneamente.
+            <p className="text-sm mb-6" style={{ color: '#B8B2AC' }}>
+              Ao alterar estas informações, todos os botões &ldquo;Diagnóstico Gratuito&rdquo; ou &ldquo;Falar no WhatsApp&rdquo; do Cabeçalho, Rodapé e Página Inicial serão atualizados instantaneamente.
             </p>
           </div>
 
           <div className="space-y-5">
             <div>
               <label className="form-label">Texto do Botão</label>
-              <input 
-                required 
-                type="text" 
-                value={settings.ctaLabel} 
-                onChange={e => setSettings({ ...settings, ctaLabel: e.target.value })} 
-                className="form-field" 
-                placeholder="Ex: Diagnóstico Gratuito" 
+              <input
+                required
+                type="text"
+                value={settings.ctaLabel}
+                onChange={e => setSettings({ ...settings, ctaLabel: e.target.value })}
+                className="form-field"
+                placeholder="Ex: Diagnóstico Gratuito"
               />
             </div>
 
             <div>
               <label className="form-label">Link de Destino</label>
-              <input 
-                required 
-                type="text" 
-                value={settings.ctaLink} 
-                onChange={e => setSettings({ ...settings, ctaLink: e.target.value })} 
-                className="form-field" 
-                placeholder="Ex: https://form.respondi.app/..." 
+              <input
+                required
+                type="text"
+                value={settings.ctaLink}
+                onChange={e => setSettings({ ...settings, ctaLink: e.target.value })}
+                className="form-field"
+                placeholder="Ex: https://form.respondi.app/..."
               />
             </div>
 
             <div>
               <label className="form-label">Link de Compra do Livro</label>
-              <input 
-                type="url" 
-                value={settings.bookLink || ''} 
-                onChange={e => setSettings({ ...settings, bookLink: e.target.value })} 
-                className="form-field" 
-                placeholder="Ex: https://loja.amazon.com.br/..." 
+              <input
+                type="url"
+                value={settings.bookLink || ''}
+                onChange={e => setSettings({ ...settings, bookLink: e.target.value })}
+                className="form-field"
+                placeholder="Ex: https://loja.amazon.com.br/..."
               />
-              <p className="text-xs mt-1" style={{ color: '#4A4540' }}>
+              <p className="text-xs mt-1" style={{ color: '#B8B2AC' }}>
                 Quando preenchido, após o formulário de solicitação do livro o usuário verá o botão de compra direto. Deixe em branco para não exibir.
               </p>
             </div>
           </div>
 
-          <div className="pt-6 mt-6 border-t flex items-center gap-4" style={{ borderColor: '#1E1E1E' }}>
+          <div className="pt-6 mt-6 border-t flex items-center gap-4" style={{ borderColor: '#27272A' }}>
             <button type="submit" disabled={saving} className="btn-primary text-sm py-3 px-8">
               <span>{saving ? 'Salvando...' : 'Salvar Configurações'}</span>
             </button>
-            {successMsg && <span className="text-sm font-semibold" style={{ color: '#4CAF77' }}>✓ {successMsg}</span>}
+            {successMsg && (
+              <span
+                role="status"
+                className="text-sm font-semibold inline-flex items-center gap-2 transition-opacity duration-200"
+                style={{ color: '#C5A059' }}
+              >
+                <IconCheck className="w-4 h-4" />
+                <span>{successMsg}</span>
+              </span>
+            )}
           </div>
         </form>
       )}
