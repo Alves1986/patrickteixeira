@@ -39,7 +39,7 @@ export function ContentTab() {
     if (!editingContent) return
 
     setLoading(true)
-    const updatedContents = contents.map(c => 
+    const updatedContents = contents.map(c =>
       c.id === editingContent.id ? { ...c, content: textContent } : c
     )
 
@@ -73,30 +73,38 @@ export function ContentTab() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', serif" }}>
+          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA' }}>
             Gerenciamento de Textos (Conteúdo)
           </h2>
-          <p className="text-sm mt-1" style={{ color: '#8A8580' }}>
+          <p className="text-sm mt-1" style={{ color: '#B8B2AC' }}>
             Altere as chamadas e textos principais das páginas.
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="p-12 text-center animate-pulse">Processando...</div>
+        <div aria-busy="true" aria-label="Carregando conteúdos" className="space-y-4">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="esqueleto h-24 w-full" />
+          ))}
+        </div>
       ) : (
         <div className="space-y-4">
           {contents.map((item) => (
-            <div key={item.id} className="p-6 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-6" style={{ background: '#161616', border: '1px solid #1E1E1E' }}>
+            <div
+              key={item.id}
+              className="p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center gap-6"
+              style={{ background: '#161616', border: '1px solid #27272A' }}
+            >
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold px-2 py-1 rounded bg-[#2A2A2A] text-gray-300 font-mono">
+                  <span className="id text-xs font-bold px-2 py-1 rounded bg-[#111111] border border-[#27272A] text-[#C5A059]">
                     {item.id}
                   </span>
-                  <span className="text-sm" style={{ color: '#8A8580' }}>{item.description}</span>
+                  <span className="text-sm" style={{ color: '#B8B2AC' }}>{item.description}</span>
                 </div>
                 <div className="text-base" style={{ color: '#FAFAFA' }}>
-                  "{item.content}"
+                  &ldquo;{item.content}&rdquo;
                 </div>
               </div>
               <button onClick={() => openModal(item)} className="btn-outline text-sm px-4 py-2 shrink-0">
@@ -109,21 +117,29 @@ export function ContentTab() {
 
       {/* Modal */}
       {isModalOpen && editingContent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }} onClick={closeModal}>
-          <div className="w-full max-w-2xl rounded-2xl p-8" style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.2)' }} onClick={e => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#FAFAFA' }}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.85)' }}
+          onClick={closeModal}
+        >
+          <div
+            className="w-full max-w-2xl rounded-2xl p-8 flutuante"
+            style={{ background: '#161616', border: '1px solid #27272A' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-bold mb-2" style={{ color: '#FAFAFA' }}>
               Editar Conteúdo
             </h3>
-            <p className="text-sm mb-6" style={{ color: '#8A8580' }}>{editingContent.description}</p>
-            
+            <p className="text-sm mb-6" style={{ color: '#B8B2AC' }}>{editingContent.description}</p>
+
             <form onSubmit={handleSave} className="space-y-4">
               <div>
                 <label className="form-label">Texto a ser exibido no site</label>
-                <textarea 
-                  required 
-                  value={textContent} 
-                  onChange={e => setTextContent(e.target.value)} 
-                  className="form-field min-h-[150px] resize-y leading-relaxed" 
+                <textarea
+                  required
+                  value={textContent}
+                  onChange={e => setTextContent(e.target.value)}
+                  className="form-field min-h-[150px] resize-y leading-relaxed"
                 />
               </div>
 

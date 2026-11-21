@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { SiteLayout } from '@/components/layout/SiteLayout'
+import { IconArrowRight, IconStar } from '@/components/ui/Icons'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -57,36 +57,14 @@ export default function DepoimentosPage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section
-        className="relative pt-32 pb-20 overflow-hidden"
-        aria-label="Depoimentos - Hero"
-      >
-        <div
-          className="absolute top-0 right-0 w-[400px] h-[400px] opacity-5 pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle, rgba(197,160,89,1) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-        />
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <section className="pt-32 pb-20" aria-label="Depoimentos - Hero">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="eyebrow mb-6 block justify-center">Resultados reais</span>
-          <h1
-            className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto leading-tight">
             Homens que Escolheram{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Outro Caminho
-            </span>
+            <span style={{ color: '#C5A059' }}>Outro Caminho</span>
           </h1>
-          <p className="text-xl max-w-xl mx-auto" style={{ color: '#8A8580' }}>
+          <p className="text-xl max-w-xl mx-auto" style={{ color: '#B8B2AC' }}>
             Não depoimentos genéricos. Transformações reais de homens que estavam onde você está.
           </p>
         </div>
@@ -103,22 +81,19 @@ export default function DepoimentosPage() {
             {depoimentos.map((t, i) => (
               <div key={i} className="card p-8 flex flex-col">
                 {/* Estrelas */}
-                <div className="flex gap-1 mb-5">
+                <div className="flex gap-1 mb-5" aria-label={`${t.stars} de 5 estrelas`}>
                   {Array(t.stars).fill(0).map((_, j) => (
-                    <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="#C5A059">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
+                    <IconStar key={j} className="w-4 h-4 text-[#C5A059]" />
                   ))}
                 </div>
 
                 {/* Destaque */}
                 <div
-                  className="text-xs font-bold tracking-wider uppercase mb-5 px-3 py-2 rounded-full inline-self-start"
+                  className="text-xs font-bold tracking-wider uppercase mb-5 px-3 py-2 rounded self-start"
                   style={{
-                    background: 'rgba(197,160,89,0.08)',
-                    border: '1px solid rgba(197,160,89,0.15)',
+                    background: '#111111',
+                    border: '1px solid #27272A',
                     color: '#C5A059',
-                    alignSelf: 'flex-start',
                   }}
                 >
                   {t.destaque}
@@ -126,18 +101,18 @@ export default function DepoimentosPage() {
 
                 {/* Quote */}
                 <blockquote className="flex-1 mb-6">
-                  <p className="text-base leading-relaxed italic" style={{ color: '#8A8580' }}>
+                  <p className="text-base leading-relaxed" style={{ color: '#B8B2AC' }}>
                     &ldquo;{t.text}&rdquo;
                   </p>
                 </blockquote>
 
                 {/* Autor */}
-                <div className="flex items-center gap-3 border-t border-[#1E1E1E] pt-4">
+                <div className="flex items-center gap-3 border-t border-[#27272A] pt-4">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
                     style={{
-                      background: 'rgba(197,160,89,0.08)',
-                      border: '1px solid rgba(197,160,89,0.2)',
+                      background: '#111111',
+                      border: '1px solid #27272A',
                     }}
                   >
                     <span className="text-xs font-bold" style={{ color: '#C5A059' }}>
@@ -146,7 +121,7 @@ export default function DepoimentosPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold" style={{ color: '#FAFAFA' }}>{t.name}</p>
-                    <p className="text-xs" style={{ color: '#4A4540' }}>{t.role}</p>
+                    <p className="text-xs" style={{ color: '#B8B2AC' }}>{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -157,28 +132,16 @@ export default function DepoimentosPage() {
 
       {/* CTA */}
       <section className="section-padding" aria-label="Próximo passo">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto">
-          <h2
-            className="text-3xl md:text-4xl font-bold mb-6"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Sua história pode ser{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              a próxima
-            </span>
+        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Sua história pode ser <span style={{ color: '#C5A059' }}>a próxima</span>
           </h2>
-          <p className="text-lg mb-8" style={{ color: '#8A8580' }}>
-            Comece com um diagnóstico gratuito. 20 minutos, sem compromisso.
+          <p className="text-lg mb-8" style={{ color: '#B8B2AC' }}>
+            Comece com um diagnóstico gratuito. <span className="tabular-nums">20</span> minutos, sem compromisso.
           </p>
           <a href="https://form.respondi.app/DQ2AeT6P" target="_blank" rel="noopener noreferrer" className="btn-primary text-base px-10 py-4">
-            <span>Fazer Diagnóstico Gratuito →</span>
+            <span>Fazer Diagnóstico Gratuito</span>
+            <IconArrowRight className="w-5 h-5" />
           </a>
         </div>
       </section>

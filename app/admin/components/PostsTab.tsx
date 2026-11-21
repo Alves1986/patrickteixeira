@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { IconCalendar, IconClock, IconPlus } from '@/components/ui/Icons'
 
 type Post = {
   slug: string
@@ -17,8 +18,7 @@ export function PostsTab() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingPost, setEditingPost] = useState<Post | null>(null)
-  
-  // Form State
+
   const [slug, setSlug] = useState('')
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
@@ -48,20 +48,17 @@ export function PostsTab() {
     e.preventDefault()
     setLoading(true)
 
-    // Generate a slug if empty
     const finalSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
 
     let updatedPosts = [...posts]
-    
+
     if (editingPost) {
-      // Edit
-      updatedPosts = updatedPosts.map(p => 
-        p.slug === editingPost.slug 
-          ? { slug: finalSlug, title, excerpt, content, date, readTime } 
+      updatedPosts = updatedPosts.map(p =>
+        p.slug === editingPost.slug
+          ? { slug: finalSlug, title, excerpt, content, date, readTime }
           : p
       )
     } else {
-      // Create
       const newPost = { slug: finalSlug, title, excerpt, content, date: date || new Date().toLocaleDateString('pt-BR'), readTime: readTime || '5 min' }
       updatedPosts.unshift(newPost)
     }
@@ -84,7 +81,7 @@ export function PostsTab() {
   const handleDelete = async (targetSlug: string) => {
     if (!confirm('Tem certeza que deseja apagar este artigo?')) return
     setLoading(true)
-    
+
     const updatedPosts = posts.filter(p => p.slug !== targetSlug)
     try {
       await fetch('/api/admin/posts', {
@@ -130,31 +127,46 @@ export function PostsTab() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', serif" }}>
+          <h2 className="text-2xl font-bold" style={{ color: '#FAFAFA' }}>
             Artigos do Blog
           </h2>
-          <p className="text-sm mt-1" style={{ color: '#8A8580' }}>
+          <p className="text-sm mt-1" style={{ color: '#B8B2AC' }}>
             Gerencie os artigos publicados no seu blog.
           </p>
         </div>
         <button onClick={() => openModal()} className="btn-primary text-sm px-4 py-2">
-          <span>+ Novo Artigo</span>
+          <IconPlus className="w-4 h-4" />
+          <span>Novo Artigo</span>
         </button>
       </div>
 
       {loading ? (
-        <div className="p-12 text-center animate-pulse">Carregando artigos...</div>
+        <div aria-busy="true" aria-label="Carregando artigos" className="space-y-4">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="esqueleto h-28 w-full" />
+          ))}
+        </div>
       ) : posts.length === 0 ? (
-        <div className="p-12 text-center text-[#8A8580]">Nenhum artigo publicado ainda.</div>
+        <div className="p-12 text-center text-[#B8B2AC]">Nenhum artigo publicado ainda.</div>
       ) : (
         <div className="space-y-4">
           {posts.map(post => (
-            <div key={post.slug} className="p-6 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-6" style={{ background: '#161616', border: '1px solid #1E1E1E' }}>
+            <div
+              key={post.slug}
+              className="p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center gap-6"
+              style={{ background: '#161616', border: '1px solid #27272A' }}
+            >
               <div className="flex-1">
                 <h3 className="font-bold text-lg" style={{ color: '#C5A059' }}>{post.title}</h3>
-                <div className="flex items-center gap-4 text-xs mt-2" style={{ color: '#8A8580' }}>
-                  <span>📅 {post.date}</span>
-                  <span>⏱️ {post.readTime}</span>
+                <div className="flex items-center gap-4 text-xs mt-2 tabular-nums" style={{ color: '#B8B2AC' }}>
+                  <span className="inline-flex items-center gap-1.5">
+                    <IconCalendar className="w-4 h-4" />
+                    <span>{post.date}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <IconClock className="w-4 h-4" />
+                    <span>{post.readTime}</span>
+                  </span>
                 </div>
                 <p className="text-sm mt-3 line-clamp-2" style={{ color: '#FAFAFA' }}>
                   {post.excerpt}
@@ -162,7 +174,7 @@ export function PostsTab() {
               </div>
               <div className="flex flex-col gap-2 shrink-0 w-full md:w-auto">
                 <button onClick={() => openModal(post)} className="btn-outline text-xs px-4 py-2 text-center">Editar Artigo</button>
-                <button onClick={() => handleDelete(post.slug)} className="text-xs px-4 py-2 hover:text-white text-center" style={{ color: '#E05252' }}>Apagar</button>
+                <button onClick={() => handleDelete(post.slug)} className="text-xs px-4 py-2 hover:text-[#FAFAFA] text-center" style={{ color: '#E05252' }}>Apagar</button>
               </div>
             </div>
           ))}
@@ -171,12 +183,20 @@ export function PostsTab() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }} onClick={closeModal}>
-          <div className="w-full max-w-3xl rounded-2xl p-8 max-h-[90vh] overflow-y-auto" style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.2)' }} onClick={e => e.stopPropagation()}>
-            <h3 className="text-2xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', serif", color: '#FAFAFA' }}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.85)' }}
+          onClick={closeModal}
+        >
+          <div
+            className="w-full max-w-3xl rounded-2xl p-8 max-h-[90vh] overflow-y-auto flutuante"
+            style={{ background: '#161616', border: '1px solid #27272A' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h3 className="text-2xl font-bold mb-6" style={{ color: '#FAFAFA' }}>
               {editingPost ? 'Editar Artigo' : 'Novo Artigo'}
             </h3>
-            
+
             <form onSubmit={handleSave} className="space-y-6">
               <div>
                 <label className="form-label">Título do Artigo</label>
@@ -204,7 +224,7 @@ export function PostsTab() {
                 <textarea required value={content} onChange={e => setContent(e.target.value)} className="form-field h-64 resize-y leading-relaxed" placeholder="Escreva o texto completo do artigo aqui..." />
               </div>
 
-              <div className="flex gap-4 pt-4 border-t" style={{ borderColor: '#1E1E1E' }}>
+              <div className="flex gap-4 pt-4 border-t" style={{ borderColor: '#27272A' }}>
                 <button type="submit" className="btn-primary text-sm py-4 px-8 flex-1">
                   <span>{editingPost ? 'Salvar Artigo' : 'Publicar Artigo'}</span>
                 </button>

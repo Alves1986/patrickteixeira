@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { SiteLayout } from '@/components/layout/SiteLayout'
+import { IconArrowRight, IconCheckCircle, IconExternalLink } from '@/components/ui/Icons'
 
 export default function DiagnosticoPage() {
   const [submitted, setSubmitted] = useState(false)
@@ -24,7 +25,6 @@ export default function DiagnosticoPage() {
     setLoading(true)
 
     try {
-      // Salva no Supabase via API route
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,7 +42,6 @@ export default function DiagnosticoPage() {
         setSubmitted(true)
       }
     } catch {
-      // Fallback: redireciona para o formulário original do Respondi
       window.open('https://form.respondi.app/DQ2AeT6P', '_blank')
     } finally {
       setLoading(false)
@@ -52,38 +51,15 @@ export default function DiagnosticoPage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section
-        className="relative pt-32 pb-16 overflow-hidden"
-        aria-label="Diagnóstico Gratuito"
-      >
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] opacity-8 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse, rgba(197,160,89,0.8) 0%, transparent 70%)',
-            filter: 'blur(60px)',
-          }}
-        />
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="pt-32 pb-16" aria-label="Diagnóstico Gratuito">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <span className="eyebrow mb-6 block justify-center">Gratuito · Sem compromisso</span>
-            <h1
-              className="text-4xl md:text-5xl font-bold mb-5"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Seu{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #C5A059, #D4B577)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                Diagnóstico Gratuito
-              </span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-5">
+              Seu <span style={{ color: '#C5A059' }}>Diagnóstico Gratuito</span>
             </h1>
-            <p className="text-lg leading-relaxed" style={{ color: '#8A8580' }}>
-              20 minutos para entender onde você está travado e qual o caminho mais curto
+            <p className="text-lg leading-relaxed" style={{ color: '#B8B2AC' }}>
+              <span className="tabular-nums">20</span> minutos para entender onde você está travado e qual o caminho mais curto
               para onde quer chegar. Sem pitch de venda agressivo. Sem pressão.
             </p>
           </div>
@@ -97,15 +73,15 @@ export default function DiagnosticoPage() {
             {!submitted ? (
               <form
                 onSubmit={handleSubmit}
+                aria-busy={loading}
                 className="space-y-6"
                 aria-label="Formulário de diagnóstico gratuito"
               >
                 <div
-                  className="p-8 rounded-2xl"
+                  className="p-8 rounded-2xl flutuante"
                   style={{
                     background: '#161616',
-                    border: '1px solid rgba(197,160,89,0.12)',
-                    boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+                    border: '1px solid #27272A',
                   }}
                 >
                   {/* Nome */}
@@ -219,18 +195,18 @@ export default function DiagnosticoPage() {
                     id="submit-diagnostico"
                     disabled={loading}
                     className="btn-primary w-full text-base py-4"
-                    style={{ opacity: loading ? 0.7 : 1 }}
                   >
-                    <span>{loading ? 'Enviando...' : 'Quero meu Diagnóstico Gratuito →'}</span>
+                    <span>{loading ? 'Enviando...' : 'Quero meu Diagnóstico Gratuito'}</span>
+                    {!loading && <IconArrowRight className="w-5 h-5" />}
                   </button>
 
-                  <p className="text-center text-xs mt-4" style={{ color: '#2A2520' }}>
-                    Seus dados são 100% seguros e não serão compartilhados.
-                    Nossa equipe retornará em até 24h úteis.
+                  <p className="text-center text-xs mt-4" style={{ color: '#B8B2AC' }}>
+                    Seus dados são <span className="tabular-nums">100%</span> seguros e não serão compartilhados.
+                    Nossa equipe retornará em até <span className="tabular-nums">24h</span> úteis.
                   </p>
                 </div>
-                <div className="mt-8 pt-8 text-center" style={{ borderTop: '1px solid rgba(197,160,89,0.1)' }}>
-                  <p className="text-sm mb-4" style={{ color: '#8A8580' }}>
+                <div className="mt-8 pt-8 text-center" style={{ borderTop: '1px solid #27272A' }}>
+                  <p className="text-sm mb-4" style={{ color: '#B8B2AC' }}>
                     Se preferir, você também pode preencher pelo nosso formulário interativo original:
                   </p>
                   <a
@@ -239,31 +215,32 @@ export default function DiagnosticoPage() {
                     rel="noopener noreferrer"
                     className="btn-outline inline-flex"
                   >
-                    Abrir Formulário Respondi ↗
+                    <span>Abrir Formulário Respondi</span>
+                    <IconExternalLink className="w-4 h-4" />
                   </a>
                 </div>
               </form>
             ) : (
               /* Sucesso */
               <div
-                className="p-12 rounded-2xl text-center"
+                role="status"
+                className="p-12 rounded-2xl text-center transition-opacity duration-200"
                 style={{
                   background: '#161616',
-                  border: '1px solid rgba(76, 175, 119, 0.3)',
+                  border: '1px solid #C5A059',
                 }}
               >
-                <div className="text-6xl mb-6">✅</div>
-                <h2
-                  className="text-3xl font-bold mb-4"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#4CAF77' }}
-                >
+                <div className="flex justify-center mb-6">
+                  <IconCheckCircle className="w-12 h-12 text-[#C5A059]" />
+                </div>
+                <h2 className="text-3xl font-bold mb-4" style={{ color: '#FAFAFA' }}>
                   Solicitação Recebida!
                 </h2>
-                <p className="text-lg leading-relaxed" style={{ color: '#8A8580' }}>
+                <p className="text-lg leading-relaxed" style={{ color: '#B8B2AC' }}>
                   Nossa equipe entrará em contato pelo WhatsApp que você informou em até{' '}
-                  <strong style={{ color: '#C4BFBA' }}>24 horas úteis</strong>.
+                  <strong style={{ color: '#FAFAFA' }} className="tabular-nums">24 horas úteis</strong>.
                 </p>
-                <p className="text-base mt-4" style={{ color: '#4A4540' }}>
+                <p className="text-base mt-4" style={{ color: '#B8B2AC' }}>
                   Enquanto isso, siga o Patrick no Instagram para mais conteúdo de liderança:
                 </p>
                 <a
@@ -272,7 +249,8 @@ export default function DiagnosticoPage() {
                   rel="noopener noreferrer"
                   className="btn-outline mt-6 inline-flex"
                 >
-                  @patrickteixeiras →
+                  <span>@patrickteixeiras</span>
+                  <IconArrowRight className="w-4 h-4" />
                 </a>
               </div>
             )}

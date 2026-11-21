@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { IconArrowRight } from '@/components/ui/Icons'
 
 type Lead = {
   id: string
@@ -20,26 +20,19 @@ const STATUS_LABELS: Record<Lead['status'], string> = {
   novo: 'Novo',
   em_contato: 'Em Contato',
   qualificado: 'Qualificado',
-  convertido: 'Convertido ✓',
+  convertido: 'Convertido',
   perdido: 'Perdido',
 }
 
-const STATUS_COLORS: Record<Lead['status'], string> = {
-  novo: '#C5A059',
-  em_contato: '#4A7CC7',
-  qualificado: '#9B59B6',
-  convertido: '#4CAF77',
-  perdido: '#E05252',
-}
-
 function StatusBadge({ status }: { status: Lead['status'] }) {
+  const isAccent = status === 'novo' || status === 'convertido'
   return (
     <span
-      className="text-xs font-bold px-3 py-1 rounded-full"
+      className="text-xs font-bold px-3 py-1 rounded inline-block"
       style={{
-        background: `${STATUS_COLORS[status]}15`,
-        color: STATUS_COLORS[status],
-        border: `1px solid ${STATUS_COLORS[status]}40`,
+        background: '#111111',
+        color: isAccent ? '#C5A059' : '#B8B2AC',
+        border: `1px solid ${isAccent ? '#C5A059' : '#27272A'}`,
       }}
     >
       {STATUS_LABELS[status]}
@@ -61,10 +54,9 @@ export function LeadsTab() {
           const data = await res.json()
           setLeads(data)
         } else {
-           throw new Error('Falha na API')
+          throw new Error('Falha na API')
         }
       } catch {
-        // fallback: dados de exemplo
         setLeads([
           {
             id: '1',
@@ -121,20 +113,23 @@ export function LeadsTab() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {[
-          { label: 'Total de Leads', value: stats.total, color: '#FAFAFA' },
-          { label: 'Novos', value: stats.novos, color: '#C5A059' },
-          { label: 'Em Contato', value: stats.emContato, color: '#4A7CC7' },
-          { label: 'Convertidos', value: stats.convertidos, color: '#4CAF77' },
+          { label: 'Total de Leads', value: stats.total, accent: false },
+          { label: 'Novos', value: stats.novos, accent: true },
+          { label: 'Em Contato', value: stats.emContato, accent: false },
+          { label: 'Convertidos', value: stats.convertidos, accent: true },
         ].map(stat => (
           <div
             key={stat.label}
-            className="p-6 rounded-xl"
-            style={{ background: '#161616', border: '1px solid #1E1E1E' }}
+            className="p-6 rounded-2xl"
+            style={{ background: '#161616', border: '1px solid #27272A' }}
           >
-            <div className="text-3xl font-bold mb-1" style={{ color: stat.color, fontFamily: "'Playfair Display', serif" }}>
+            <div
+              className="text-3xl font-bold mb-1 tabular-nums"
+              style={{ color: stat.accent ? '#C5A059' : '#FAFAFA', fontFamily: 'var(--font-display)' }}
+            >
               {stat.value}
             </div>
-            <div className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#4A4540' }}>
+            <div className="text-xs font-semibold tracking-wider uppercase" style={{ color: '#B8B2AC' }}>
               {stat.label}
             </div>
           </div>
@@ -143,11 +138,11 @@ export function LeadsTab() {
 
       {/* Leads table */}
       <div
-        className="rounded-xl overflow-hidden"
-        style={{ background: '#161616', border: '1px solid #1E1E1E' }}
+        className="rounded-2xl overflow-hidden"
+        style={{ background: '#161616', border: '1px solid #27272A' }}
       >
-        <div className="px-6 py-4 border-b flex items-center justify-between gap-4 flex-wrap" style={{ borderColor: '#1E1E1E' }}>
-          <h2 className="font-bold text-lg" style={{ color: '#FAFAFA', fontFamily: "'Playfair Display', serif" }}>
+        <div className="px-6 py-4 border-b flex items-center justify-between gap-4 flex-wrap" style={{ borderColor: '#27272A' }}>
+          <h2 className="font-bold text-lg" style={{ color: '#FAFAFA' }}>
             Leads Recebidos
           </h2>
           <select
@@ -165,16 +160,20 @@ export function LeadsTab() {
         </div>
 
         {loading ? (
-          <div className="p-20 text-center animate-pulse">Carregando leads...</div>
+          <div aria-busy="true" aria-label="Carregando leads" className="p-6 space-y-3">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="esqueleto h-12 w-full" />
+            ))}
+          </div>
         ) : filteredLeads.length === 0 ? (
-          <div className="p-20 text-center">Nenhum lead encontrado.</div>
+          <div className="p-20 text-center" style={{ color: '#B8B2AC' }}>Nenhum lead encontrado.</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr style={{ borderBottom: '1px solid #1E1E1E' }}>
+                <tr style={{ borderBottom: '1px solid #27272A' }}>
                   {['Nome', 'WhatsApp', 'Negócio', 'Origem', 'Status', 'Data', ''].map(h => (
-                    <th key={h} className="px-6 py-3 text-xs font-bold tracking-widest uppercase" style={{ color: '#4A4540' }}>
+                    <th key={h} className="px-6 py-3 text-xs font-bold tracking-widest uppercase" style={{ color: '#B8B2AC' }}>
                       {h}
                     </th>
                   ))}
@@ -185,20 +184,34 @@ export function LeadsTab() {
                   <tr
                     key={lead.id}
                     className="hover:bg-[#111111] transition-colors cursor-pointer"
-                    style={{ borderBottom: i < filteredLeads.length - 1 ? '1px solid #1E1E1E' : 'none' }}
+                    style={{ borderBottom: i < filteredLeads.length - 1 ? '1px solid #27272A' : 'none' }}
                     onClick={() => setSelectedLead(lead)}
                   >
                     <td className="px-6 py-4"><span className="font-semibold text-sm" style={{ color: '#FAFAFA' }}>{lead.name}</span></td>
                     <td className="px-6 py-4">
-                      <a href={`https://wa.me/${lead.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-sm hover:underline" style={{ color: '#4CAF77' }} onClick={e => e.stopPropagation()}>
+                      <a
+                        href={`https://wa.me/${lead.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm hover:underline tabular-nums"
+                        style={{ color: '#C5A059' }}
+                        onClick={e => e.stopPropagation()}
+                      >
                         {lead.whatsapp}
                       </a>
                     </td>
-                    <td className="px-6 py-4 text-sm" style={{ color: '#8A8580' }}>{lead.business}</td>
-                    <td className="px-6 py-4 text-xs" style={{ color: '#4A4540' }}>{lead.source || '—'}</td>
+                    <td className="px-6 py-4 text-sm" style={{ color: '#B8B2AC' }}>{lead.business}</td>
+                    <td className="px-6 py-4 text-xs" style={{ color: '#B8B2AC' }}>{lead.source || '—'}</td>
                     <td className="px-6 py-4"><StatusBadge status={lead.status} /></td>
-                    <td className="px-6 py-4 text-xs" style={{ color: '#4A4540' }}>{new Date(lead.created_at).toLocaleDateString('pt-BR')}</td>
-                    <td className="px-6 py-4 text-xs" style={{ color: '#C5A059' }}>Ver →</td>
+                    <td className="px-6 py-4 text-xs tabular-nums" style={{ color: '#B8B2AC' }}>
+                      {new Date(lead.created_at).toLocaleDateString('pt-BR')}
+                    </td>
+                    <td className="px-6 py-4 text-xs" style={{ color: '#C5A059' }}>
+                      <span className="inline-flex items-center gap-1">
+                        <span>Ver</span>
+                        <IconArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -209,34 +222,55 @@ export function LeadsTab() {
 
       {/* Modal de Lead */}
       {selectedLead && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }} onClick={() => setSelectedLead(null)}>
-          <div className="w-full max-w-lg rounded-2xl p-8" style={{ background: '#161616', border: '1px solid rgba(197,160,89,0.2)' }} onClick={e => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.85)' }}
+          onClick={() => setSelectedLead(null)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl p-8 flutuante"
+            style={{ background: '#161616', border: '1px solid #27272A' }}
+            onClick={e => e.stopPropagation()}
+          >
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h3 className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif", color: '#FAFAFA' }}>{selectedLead.name}</h3>
-                <p className="text-sm" style={{ color: '#8A8580' }}>{selectedLead.business}</p>
+                <h3 className="text-xl font-bold" style={{ color: '#FAFAFA' }}>{selectedLead.name}</h3>
+                <p className="text-sm" style={{ color: '#B8B2AC' }}>{selectedLead.business}</p>
               </div>
               <StatusBadge status={selectedLead.status} />
             </div>
 
             <div className="space-y-4 mb-6">
               <div>
-                <p className="text-xs uppercase tracking-wider mb-1" style={{ color: '#4A4540' }}>WhatsApp</p>
-                <a href={`https://wa.me/${selectedLead.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold" style={{ color: '#4CAF77' }}>
-                  {selectedLead.whatsapp} — Abrir conversa →
+                <p className="text-xs uppercase tracking-wider mb-1" style={{ color: '#B8B2AC' }}>WhatsApp</p>
+                <a
+                  href={`https://wa.me/${selectedLead.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold inline-flex items-center gap-1 tabular-nums"
+                  style={{ color: '#C5A059' }}
+                >
+                  <span>{selectedLead.whatsapp} — Abrir conversa</span>
+                  <IconArrowRight className="w-4 h-4" />
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider mb-1" style={{ color: '#4A4540' }}>Principal dor</p>
-                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ background: '#111111', color: '#8A8580', border: '1px solid #1E1E1E' }}>
+                <p className="text-xs uppercase tracking-wider mb-1" style={{ color: '#B8B2AC' }}>Principal dor</p>
+                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ background: '#111111', color: '#FAFAFA', border: '1px solid #27272A' }}>
                   {selectedLead.pain_description}
                 </p>
               </div>
             </div>
 
             <div className="flex gap-3">
-              <a href={`https://wa.me/${selectedLead.whatsapp}?text=Olá, ${selectedLead.name.split(' ')[0]}!`} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-3 flex-1 text-center">
-                <span>Iniciar WhatsApp →</span>
+              <a
+                href={`https://wa.me/${selectedLead.whatsapp}?text=Olá, ${selectedLead.name.split(' ')[0]}!`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-sm py-3 flex-1 text-center"
+              >
+                <span>Iniciar WhatsApp</span>
+                <IconArrowRight className="w-4 h-4" />
               </a>
               <button onClick={() => setSelectedLead(null)} className="btn-outline text-sm py-3 px-6">Fechar</button>
             </div>
